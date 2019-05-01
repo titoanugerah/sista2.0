@@ -5,7 +5,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('./assets/template/uikit'); ?>/assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?php echo base_url('./assets/logo/wardah.png'); ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>PARAGON | Login </title>
+  <title>SISTA </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
@@ -29,7 +29,7 @@
         </a>
       </div>
       <div class="navbar-translate">
-        <a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="PT. Paragon Technology and Innovation " data-placement="bottom" target="_blank">PT. Paragon Technology and Innovation</a>
+        <a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Sistem Informasi Kerja Praktik dan Tugas Akhir Departemen Teknik Lingkungan Universitas Diponegoro " data-placement="bottom" target="_blank">SISTA Teknik Lingkungan UNDIP</a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar top-bar"></span>
           <span class="navbar-toggler-bar middle-bar"></span>
@@ -52,7 +52,7 @@
             <form class="form" method="post">
               <div class="card-header text-center">
                 <div class="logo-container">
-                  <img src="<?php echo base_url('./assets/logo/wardah.png'); ?>" alt="" style="">
+                  <img src="<?php echo base_url('./assets/logo/undip-light.png'); ?>" alt="" style="">
                 </div>
               </div>
               <div class="card-body">
@@ -101,8 +101,8 @@
             <script>
             document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
           </script>,
-          <a href="https://ft.undip.ac.id" target="_blank">Wardah</a>. dan
-          <a target="_blank">Artwork</a>.
+          <a href="https://ft.undip.ac.id" target="_blank">Departemen Teknik Lingungan UNDIP</a> &nbsp; X  &nbsp; 
+          <a target="_blank">Tito Anugerah Maharizky</a>.
         </div>
       </div>
     </footer>
