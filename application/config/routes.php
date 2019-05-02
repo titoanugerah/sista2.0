@@ -1,12 +1,12 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 #DEFAULT STRUCTURE
-$route['default_controller'] = 'account/dashboard';
+$route['default_controller'] = 'account/login/4';
 $route['404_override'] = 'account/error404';
 $route['translate_uri_dashes'] = FALSE;
 
 #ACCOUNT AREA
-$route['login'] = 'account/login';
+$route['login/(:any)'] = 'account/login/$1';
 $route['logout'] = 'account/logout';
 $route['forgotPassword'] = 'account/forgotPassword';
 $route['dashboard'] = 'account/dashboard';

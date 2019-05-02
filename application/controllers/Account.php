@@ -5,34 +5,33 @@ class Account extends CI_Controller{
   public function __construct()
   {
     parent::__construct();
-    $this->load->model('account_model');
     error_reporting(0);
+    $this->load->model('account_model');
   }
 
-  public function login()
+  public function login($id)
   {
-    $data['notification'] = 'no';
-      if ($this->input->post('loginValidation')){
-      $login = $this->account_model->loginValidation();
-    if($login['status']==1 & ($this->input->post('captcha')==$this->session->userdata('result'))){
-        $this->session->set_userdata($login['session']);
-        redirect(base_url('dashboard'));
-      } elseif($login['status']==1){
-        $data['notification'] = 'captchaWrong';
-      } else {
-        $data['notification'] = 'loginError';
-      }
+    $data['content'] = $this->account_model->cLogin($id);
+    if ($this->input->post('loginValidation')) {
+      $account = $this->account_model->loginValidation();
+      $status = $account['status'];
+      if ($status==3) {$this->session->set_userdata($account['account']); redirect(base_url('dashboard'));} else { $this->redirect('login'.$status);}
+    } else {
+      $this->session->set_userdata('result',$data['content']['captcha']['result']);
+      $this->load->view('login', $data);
     }
-//    var_dump($this->session->userdata['result']);die;
-    $captcha = $this->account_model->createCaptcha();
-    $this->session->set_userdata($captcha);
-    $this->load->view('login', $data);
+  }
+
+  public function redirect($redirect)
+  {
+
+    redirect(base_url($redirect));
   }
 
   public function logout()
   {
     $this->session->sess_destroy();
-    redirect(base_url('login'));
+    redirect(base_url('login/4'));
   }
 
   public function forgotPassword()

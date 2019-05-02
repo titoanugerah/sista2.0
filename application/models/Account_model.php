@@ -8,59 +8,128 @@ class Account_model extends CI_model{
 
   }
 
+  //core
+  public function getAllData($table)
+  {
+    $query = $this->db->get($table);
+    return $query->result();
+  }
+
+  public function getDataRow($table, $var, $val)
+  {
+    $where = array($var => $val);
+    $query = $this->db->get_where($table, $where);
+    return $query->row();
+  }
+
+  public function getDataRow2($table, $var1, $val1, $var2, $val2)
+  {
+    $where = array($var1 => $val1, $var2 => $val2);
+    $data = $this->db->get_where($table, $where);
+    return $data->row();
+  }
+
+  public function getNumRows2($table, $var1, $val1, $var2, $val2)
+  {
+    $where = array($var1 => $val1, $var2 => $val2);
+    $data = $this->db->get_where($table, $where);
+    return $data->num_rows();
+  }
+
+  //functional
   public function createCaptcha()
   {
     $data['aCaptcha'] =  rand( 1 , 10 );
     $data['bCaptcha'] =  rand( 1 , 10 );
-    $data['result'] = $data['aCaptcha'] + $data['bCaptcha'];
+    $data['result'] = (int)$data['aCaptcha'] + $data['bCaptcha'];
+    return $data;
+  }
+
+  public function captchaValidation()
+  {
+    if ($this->input->post('captcha')==$this->session->userdata['result']) {$status = 2;} else {$status = 1;}return $status;
+  }
+
+  public function findUsername($username)
+  {
+    $data = $this->getDataRow('account', 'username', $username);
+    return $data;
+  }
+
+  //application
+
+  public function cLogin($notification)
+  {
+    $data['notification'] = 'login'.$notification;
+    $data['captcha'] = $this->createCaptcha();
+    $data['webconf'] = $this->getDataRow('webconf', 'id', 1);
     return $data;
   }
 
   public function loginValidation()
   {
-    $where = array(
-      'username' => $this->input->post('username'),
-      'password' => md5($this->input->post('password'))
-     );
-     $query = $this->db->get_where('account', $where);
-     $account['status'] = $query->num_rows();
-     $account['session'] = array (
-       'login' => true,
-       'id' => $query->row('id'),
-       'username' => $query->row('username'),
-       'password' => $query->row('password'),
-       'fullname' => $query->row('fullname'),
-       'email' => $query->row('email'),
-       'phone' => $query->row('phone'),
-       'display_picture' => $query->row('display_picture'),
-       'other_info' => $query->row('other_info'),
-       'role' => $query->row('role')
-     );
-     return $account;
+    $data['status'] = (int)$this->getNumRows2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password'))) + $this->captchaValidation();
+    if ($data['status']==3) {
+      $query = $this->getDataRow2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
+      $account = $this->getDataRow('view_'.$query->role,'id', $query->id);
+      if ($query->role=='admin') {
+        $data['account'] = array(
+          'login' => true,
+          'role' => $query->role,
+          'id' => $account->id,
+          'username' => $account->username,
+          'password' => $account->password,
+          'fullname' => $account->fullname,
+          'email' => $account->email,
+          'nip' => $account->nip,
+          'display_picture' => $account->display_picture,
+         );
+      } elseif ($query->role=='dosen') {
+        $data['account'] = array(
+          'login' => true,
+          'role' => $query->role,
+          'id' => $account->id,
+          'username' => $account->username,
+          'password' => $account->password,
+          'fullname' => $account->fullname,
+          'email' => $account->email,
+          'nip' => $account->nip,
+          //tambahin
+         );
+      } elseif ($query->role=='mahasiswa') {
+        $data['account'] = array(
+          'login' => true,
+          'role' => $query->role,
+          'id' => $account->id,
+          'username' => $account->username,
+          'password' => $account->password,
+          'fullname' => $account->fullname,
+          'email' => $account->email,
+          'nip' => $account->nip,
+          //tambahin
+         );
+      }
+    }
+    return $data;
   }
 
-  public function getDataRow($id, $table)
-  {
-    $where = array('id' => $id);
-    $query = $this->db->get_where($table, $where);
-    return $query->row();
-  }
 
-  public function findAccountByUsername()
+  public function findAccountByUsername1()
   {
     $where = array('username' => $this->input->post('username'));
     $query = $this->db->get_where('account', $where);
     $account['status'] = $query->num_rows();
-    $this->resetPassword($query->row('id'));
+    if ($account['status']==1) {
+      $this->resetPassword($query->row('id'));
+    }
     return $account;
   }
 
   public function resetPassword($id)
   {
-    $newPassword = rand(1001, 9999);
+    $newPassword = rand(100000, 999999);
     $data = array(
-      'password' => md5($newPassword),
-      'other_info' => $newPassword
+      'password' => md5($newPassword)
     );
     $where = array('id' => $id);
     $this->db->where($where);

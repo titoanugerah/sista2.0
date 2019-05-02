@@ -2,5 +2,5 @@
   <button type="button" aria-hidden="true" class="close">
     <i class="now-ui-icons ui-1_simple-remove"></i>
   </button>
-  <span><?php echo $upload['message']; ?></span>
+  <span>Maaf username dan password yang anda masukan salah</span>
 </div>

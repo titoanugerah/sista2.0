@@ -2,5 +2,5 @@
   <button type="button" aria-hidden="true" class="close">
     <i class="now-ui-icons ui-1_simple-remove"></i>
   </button>
-  <span>Maaf, jumlah stok item tidak memenuhi permintaan anda</span>
+  <span>Maaf captcha yang anda masukan keliru</span>
 </div>

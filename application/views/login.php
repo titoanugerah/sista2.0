@@ -7,14 +7,12 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
   <title>SISTA </title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
-  <!--     Fonts and icons     -->
   <link href="https://fonts.googleapis.com/css?family=Montserrat:400,700,200" rel="stylesheet" />
   <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
-  <!-- CSS Files -->
   <link href="<?php echo base_url('./assets/template/uikit'); ?>/assets/css/bootstrap.min.css" rel="stylesheet" />
   <link href="<?php echo base_url('./assets/template/uikit'); ?>/assets/css/now-ui-kit.css?v=1.2.0" rel="stylesheet" />
-  <!-- CSS Just for demo purpose, don't include it in your project -->
   <link href="<?php echo base_url('./assets/template/uikit'); ?>/assets/demo/demo.css" rel="stylesheet" />
+
 </head>
 
 <body class="login-page sidebar-collapse">
@@ -56,7 +54,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <?php $this->load->view('notification/'.$notification);?>
+                <?php $this->load->view('notification/'.$content['notification']);?>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -79,7 +77,7 @@
                       <i class="now-ui-icons education_glasses"></i>
                     </span>
                   </div>
-                  <input type="text" placeholder=" <?php echo $this->session->userdata['aCaptcha']." + ".$this->session->userdata['bCaptcha']; ?> " name="captcha" class="form-control" required>
+                  <input type="text" placeholder=" <?php echo $content['captcha']['aCaptcha']." + ".$content['captcha']['bCaptcha']; ?> " name="captcha" class="form-control" required>
                 </div>
               </div>
               <div class="card-footer text-center">
@@ -101,7 +99,7 @@
             <script>
             document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
           </script>,
-          <a href="https://ft.undip.ac.id" target="_blank">Departemen Teknik Lingungan UNDIP</a> &nbsp; X  &nbsp;
+          <a href="https://lingkungan.ft.undip.ac.id" target="_blank">Departemen Teknik Lingungan UNDIP</a> &nbsp; X  &nbsp;
           <a target="_blank">Tito Anugerah Maharizky</a>.
         </div>
       </div>
@@ -122,6 +120,7 @@
   <script src="<?php echo base_url('./assets/template/uikit/'); ?>assets/js/plugins/bootstrap-datepicker.js" type="text/javascript"></script>
   <!-- Control Center for Now Ui Kit: parallax effects, scripts for the example pages etc -->
   <script src="<?php echo base_url('./assets/template/uikit/'); ?>assets/js/now-ui-kit.js?v=1.2.0" type="text/javascript"></script>
+
 </body>
 
 </html>

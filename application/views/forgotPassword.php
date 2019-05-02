@@ -29,7 +29,7 @@
         </a>
       </div>
       <div class="navbar-translate">
-        <a class="navbar-brand" href="https://demos.creative-tim.com/now-ui-kit/index.html" rel="tooltip" title="Wardah" data-placement="bottom" target="_blank">Wardah</a>
+        <a class="navbar-brand" href="<?php echo base_url('forgotPassword'); ?>" rel="tooltip" title="Sistem Informasi Kerja Praktik dan Tugas Akhir Departemen Teknik Lingkungan Universitas Diponegoro " data-placement="bottom" target="_blank">SISTA Teknik Lingkungan UNDIP</a>
         <button class="navbar-toggler navbar-toggler" type="button" data-toggle="collapse" data-target="#navigation" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
           <span class="navbar-toggler-bar top-bar"></span>
           <span class="navbar-toggler-bar middle-bar"></span>
@@ -52,7 +52,7 @@
             <form class="form" method="post">
               <div class="card-header text-center">
                 <div class="logo-container">
-                  <img src="<?php echo base_url('./assets/logo/wardah.png'); ?>" alt="">
+                  <img src="<?php echo base_url('./assets/logo/undip-light.png'); ?>" alt="">
                 </div>
               </div>
               <div class="card-body">
@@ -63,7 +63,7 @@
                       <i class="now-ui-icons users_circle-08"></i>
                     </span>
                   </div>
-                  <input type="text" class="form-control" name="username" placeholder="Masukan username akun anda" required>
+                  <input type="text" class="form-control" name="username" placeholder="Masukan username anda" required>
                 </div>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
@@ -93,8 +93,8 @@
             <script>
             document.getElementById('copyright').appendChild(document.createTextNode(new Date().getFullYear()))
           </script>,
-          <a href="https://ft.undip.ac.id" target="_blank">Wardah</a>. dan
-          <a target="_blank">Artwork</a>.
+          <a href="https://lingkungan.ft.undip.ac.id" target="_blank">Departemen Teknik Lingungan UNDIP</a> &nbsp; X  &nbsp;
+          <a target="_blank">Tito Anugerah Maharizky</a>.
         </div>
       </div>
     </footer>
