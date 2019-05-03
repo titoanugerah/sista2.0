@@ -56,7 +56,7 @@
                 </div>
               </div>
               <div class="card-body">
-                <?php $this->load->view('notification/'.$notification);?>
+                <?php $this->load->view('notification/'.$content['notification']);?>
                 <div class="input-group no-border input-lg">
                   <div class="input-group-prepend">
                     <span class="input-group-text">
@@ -65,14 +65,7 @@
                   </div>
                   <input type="text" class="form-control" name="username" placeholder="Masukan username anda" required>
                 </div>
-                <div class="input-group no-border input-lg">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="now-ui-icons education_glasses"></i>
-                    </span>
-                  </div>
-                  <input type="text" placeholder=" <?php echo $this->session->userdata['aCaptcha']." + ".$this->session->userdata['bCaptcha']; ?> " name="captcha" class="form-control" required>
-                </div>
+                
               </div>
               <div class="card-footer text-center">
                 <button type="submit" name="resetPassword" value="resetPassword" class="btn btn-primary btn-round btn-lg btn-block">Reset Password</button>

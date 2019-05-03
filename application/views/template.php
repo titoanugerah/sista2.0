@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('./assets/template/material/');?>assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?php echo base_url('./assets/image/undip-original.png'); ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>PARAGON | <?php echo $title; ?></title>
+  <title>SISTA | <?php echo $title; ?></title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -23,7 +23,7 @@
   <div class="wrapper ">
     <div class="sidebar" data-color="purple" data-background-color="white">
       <div class="logo">
-        <a href="#" class="simple-text logo-normal">PARAGON</a>
+        <a href="#" class="simple-text logo-normal">SISTA</a>
       </div>
       <div class="sidebar-wrapper">
         <ul class="nav">
@@ -63,7 +63,7 @@
       <div class="content">
         <div class="container-fluid">
           <ol class="breadcrumb" style="background:white;">
-            <li class="breadcrumb-item">PARAGON</li>
+            <li class="breadcrumb-item">SISTA</li>
             <li class="breadcrumb-item"><?php echo ucfirst($this->session->userdata['role']); ?></li>
             <li class="breadcrumb-item active"><?php echo ucfirst($title); ?></li>
           </ol>
@@ -79,7 +79,7 @@
             <script>
               document.write(new Date().getFullYear())
             </script>,
-            PT. Paragon Technology and Innovation
+            Departemen Teknik Lingkungan UNDIP
           </div>
           <!-- your footer here -->
         </div>

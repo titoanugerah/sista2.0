@@ -29,6 +29,13 @@ class Account_model extends CI_model{
     return $data->row();
   }
 
+  public function getNumRows($table, $var, $val)
+  {
+    $where = array($var => $val);
+    $query = $this->db->get_where($table, $where);
+    return $query->num_rows();
+  }
+
   public function getNumRows2($table, $var1, $val1, $var2, $val2)
   {
     $where = array($var1 => $val1, $var2 => $val2);
@@ -36,16 +43,59 @@ class Account_model extends CI_model{
     return $data->num_rows();
   }
 
-  //functional
+  public function updateData($table, $varWhere, $valWhere, $varSet, $valSet)
+  {
+    $where = array($varWhere => $valWhere);
+    $data = array($varSet => $valSet);
+    $this->db->where($where);
+    $status = $this->db->update($table, $data);
+    return $status;
+  }
 
+  //functional
   public function findUsername($username)
   {
-    $data = $this->getDataRow('account', 'username', $username);
+    $data['status'] = $this->getNumRows('account', 'username', $username);
+    if ($data['status']==1) {
+      $data['account'] = $this->getDataRow('account', 'username', $username);
+    }
     return $data;
   }
 
-  //application
+  public function sentEmail($id, $subject, $message)
+  {
+    $account = $this->getDataRow('view_'.$this->getDataRow('account', 'id', $id)->role, 'id', $id);
+    $emailConf = $this->getDataRow('webconf', 'id', 1);
+    $config = [
+      'protocol' => 'sentmail',
+      'smtp_host' => $emailConf->host,
+      'smtp_user' => $emailConf->username,
+      'smtp_pass' => $emailConf->password,
+      'smtp_crypto' => $emailConf->crypto,
+      'charset' => 'utf-8',
+      'crlf' => 'rn',
+      'newline' => "\r\n", //REQUIRED! Notice the double quotes!
+      'smtp_port' => $emailConf->port
+    ];
+    $this->load->library('email', $config);
+    $this->email->from($emailConf->email);
+    $this->email->to($account->email);
+    $this->email->subject($subject);
+    $this->email->message('
+    Yth. '.$account->fullname.'
+    Di tempat.
 
+    '.$message.'
+
+    Atas perhatiannya kami ucapkan terima kasih.
+
+    Admin
+    ');
+    $sent = $this->email->send();
+    error_reporting(0);
+  }
+
+  //application
   public function cLogin($notification)
   {
     if ($notification=='' && $notification!=0) {
@@ -103,19 +153,26 @@ class Account_model extends CI_model{
     return $data;
   }
 
-
-  public function findAccountByUsername1()
+  public function cForgotPassword($notification)
   {
-    $where = array('username' => $this->input->post('username'));
-    $query = $this->db->get_where('account', $where);
-    $account['status'] = $query->num_rows();
-    if ($account['status']==1) {
-      $this->resetPassword($query->row('id'));
-    }
-    return $account;
+    $data['notification'] = 'fpass'.($notification);
+    return $data;
   }
 
-  public function resetPassword($id)
+  public function resetPassword()
+  {
+    $validation = $this->findUsername($this->input->post('username'));
+    if ($validation['status']==1) {
+      $newPassword = rand(100001,999999);
+      $this->updateData('account', 'id', $validation['account']->id, 'password', md5($newPassword));
+      $content = ' Bersamaan dengan email ini kami informasikan bahwa proses reset password anda berhasil, password baru anda adalah = '.$newPassword.'. silahkan kunjungi halaman http://sista.co.id';
+      $this->sentEmail($validation['account']->id, 'Reset Password SISTA', $content);
+    }
+    return $validation['status'];
+  }
+
+
+  public function resetPassword1($id)
   {
     $newPassword = rand(100000, 999999);
     $data = array(
@@ -128,38 +185,6 @@ class Account_model extends CI_model{
     $this->sentEmail($id, $message);
   }
 
-  public function sentEmail($id, $message)
-  {
-    $account = $this->getDataRow($id, 'account');
-    $emailConf = $this->getDataRow(1, 'webconf');
-    $config = [
-      'protocol' => 'sentmail',
-      'smtp_host' => $emailConf->host,
-      'smtp_user' => $emailConf->username,
-      'smtp_pass' => $emailConf->password,
-      'smtp_crypto' => $emailConf->crypto,
-      'charset' => 'utf-8',
-      'crlf' => 'rn',
-      'newline' => "\r\n", //REQUIRED! Notice the double quotes!
-      'smtp_port' => $emailConf->port
-    ];
-    $this->load->library('email', $config);
-    $this->email->from('admin@sipmaft.com');
-    $this->email->to($account->email);
-    $this->email->subject('Password baru akun Wardah');
-    $this->email->message('
-    Yth. '.$account->fullname.'
-    Di tempat.
-
-    '.$message.'
-
-    Atas perhatiannya kami ucapkan terima kasih.
-
-    Admin
-    ');
-    $sent = $this->email->send();
-    error_reporting(0);
-  }
 
   public function updateAccount()
   {

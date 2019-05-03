@@ -29,19 +29,11 @@ class Account extends CI_Controller{
 
   public function forgotPassword()
   {
-    $data['notification'] = 'no';
+    $data['content'] = $this->account_model->cForgotPassword(1);
     if ($this->input->post('resetPassword')) {
-      $account = $this->account_model->findAccountByUsername();
-      if($account['status']==1 && ($this->input->post('captcha')==$this->session->userdata('result'))){
-        $data['notification'] = 'resetPasswordSuccess';
-      } elseif($account['status']==1){
-        $data['notification'] = 'captchaWrong';
-      } else {
-        $data['notification'] = 'usernameWrong';
-      }
+      $account = $this->account_model->resetPassword();
+      $data['content'] = $this->account_model->cForgotPassword($account+1);
     }
-    $captcha = $this->account_model->createCaptcha();
-    $this->session->set_userdata($captcha);
     $this->load->view('forgotPassword', $data);
   }
 
@@ -49,12 +41,13 @@ class Account extends CI_Controller{
   {
     $data['title'] = 'Dashboard';
     $data['view_name'] = 'no';
-    $data['notification'] = 'loginSuccess';
+    $data['notification'] = 'login2';
     $this->load->view('template', $data);
   }
 
   public function profile()
   {
+    $data['content'] = $this->account_model->cProfile();
     $data['notification'] = 'no';
     if ($this->input->post('updateAccount')) {
       $update = $this->account_model->updateAccount();
