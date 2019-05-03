@@ -37,18 +37,6 @@ class Account_model extends CI_model{
   }
 
   //functional
-  public function createCaptcha()
-  {
-    $data['aCaptcha'] =  rand( 1 , 10 );
-    $data['bCaptcha'] =  rand( 1 , 10 );
-    $data['result'] = (int)$data['aCaptcha'] + $data['bCaptcha'];
-    return $data;
-  }
-
-  public function captchaValidation()
-  {
-    if ($this->input->post('captcha')==$this->session->userdata['result']) {$status = 2;} else {$status = 1;}return $status;
-  }
 
   public function findUsername($username)
   {
@@ -60,16 +48,18 @@ class Account_model extends CI_model{
 
   public function cLogin($notification)
   {
+    if ($notification=='' && $notification!=0) {
+      $notification = 1;
+    }
     $data['notification'] = 'login'.$notification;
-    $data['captcha'] = $this->createCaptcha();
     $data['webconf'] = $this->getDataRow('webconf', 'id', 1);
     return $data;
   }
 
   public function loginValidation()
   {
-    $data['status'] = (int)$this->getNumRows2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password'))) + $this->captchaValidation();
-    if ($data['status']==3) {
+    $data['status'] = $this->getNumRows2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
+    if ($data['status']==1) {
       $query = $this->getDataRow2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
       $account = $this->getDataRow('view_'.$query->role,'id', $query->id);
       if ($query->role=='admin') {

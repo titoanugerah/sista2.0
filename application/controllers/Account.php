@@ -9,23 +9,16 @@ class Account extends CI_Controller{
     $this->load->model('account_model');
   }
 
-  public function login($id)
+  public function login()
   {
-    $data['content'] = $this->account_model->cLogin($id);
     if ($this->input->post('loginValidation')) {
       $account = $this->account_model->loginValidation();
       $status = $account['status'];
-      if ($status==3) {$this->session->set_userdata($account['account']); redirect(base_url('dashboard'));} else { $this->redirect('login'.$status);}
+      if ($status==1) {$this->session->set_userdata($account['account']); redirect(base_url('dashboard'));} else {  $data['content'] = $this->account_model->cLogin($status);}
     } else {
-      $this->session->set_userdata('result',$data['content']['captcha']['result']);
-      $this->load->view('login', $data);
+      $data['content'] = $this->account_model->cLogin(1);
     }
-  }
-
-  public function redirect($redirect)
-  {
-
-    redirect(base_url($redirect));
+    $this->load->view('login', $data);
   }
 
   public function logout()

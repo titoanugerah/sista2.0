@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+  <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="utf-8" />
@@ -70,14 +70,6 @@
                     </span>
                   </div>
                   <input type="password" placeholder="Password" name="password" class="form-control" required>
-                </div>
-                <div class="input-group no-border input-lg">
-                  <div class="input-group-prepend">
-                    <span class="input-group-text">
-                      <i class="now-ui-icons education_glasses"></i>
-                    </span>
-                  </div>
-                  <input type="text" placeholder=" <?php echo $content['captcha']['aCaptcha']." + ".$content['captcha']['bCaptcha']; ?> " name="captcha" class="form-control" required>
                 </div>
               </div>
               <div class="card-footer text-center">
