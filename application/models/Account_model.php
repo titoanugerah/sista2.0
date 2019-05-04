@@ -140,6 +140,24 @@ class Account_model extends CI_model{
     return $data;
   }
 
+  public function uploadPicture($filename)
+  {
+    $config['upload_path'] = APPPATH.'../assets/upload/';
+    $config['overwrite'] = TRUE;
+    $config['file_name']     = $filename;
+    $config['allowed_types'] = 'jpg|png';
+    $config['max_width']  = 800;
+    $config['max_height'] = 800;
+    $this->load->library('upload', $config);
+    if (!$this->upload->do_upload('image_address')) {
+      $upload['status']=0;
+      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
+    } else {
+      $upload['status']=1;
+      $upload['message'] = "File berhasil di upload";
+    }
+    return $upload;
+  }
   //application
   public function cLogin($notification)
   {
@@ -195,69 +213,36 @@ class Account_model extends CI_model{
       $this->updateData('account', 'id', $this->session->userdata['id'], 'username', $this->input->post('username'));
       $this->updateData('account', 'id', $this->session->userdata['id'], 'password', md5($this->input->post('username')));
     }
-
-    if ($this->session->userdata['role']=='admin') {
+    if ($this->session->userdata['role']=='admin'){
       $data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
-      $this->db->where($where);
-      $this->db->update('account_'.$this->session->userdata['role'], $data);
+    } elseif ($this->session->userdata['role'] == 'mahasiswa') {
+      //$data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
+      //tambahin sendiri
+    } elseif ($this->session->userdata['role'] == 'dosen') {
+      //$data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
+      //tambahin sendiri
     }
-    $query = $this->getDataRow($this->session->userdata['id'], 'account');
-    $account['session'] = array (
-      'login' => true,
-      'id' => $query->id,
-      'username' => $query->username,
-      'password' => $query->password,
-      'fullname' => $query->fullname,
-      'email' => $query->email,
-      'phone' => $query->phone,
-      'display_picture' => $query->display_picture,
-      'other_info' => $query->other_info,
-      'role' => $query->role
-    );
+    $this->db->where($where);
+    $account['status'] = $this->db->update('account_'.$this->session->userdata['role'], $data);
+    $account['session'] = $this->setSession($this->session->userdata['id']);
     return $account;
-
   }
 
-  public function uploadPicture()
+  public function updatePicture()
   {
-    $config['upload_path']   = APPPATH.'../assets/upload/';
-    $config['overwrite'] = TRUE;
-    $config['file_name']     = "display_picture_".$this->session->userdata['id'];
-    $config['allowed_types'] = 'jpg|png';
-    $config['max_width']  = 800;
-    $config['max_height'] = 800;
-    $this->load->library('upload', $config);
-    if (!$this->upload->do_upload('image_address')) {
-      $upload['status']=0;
-      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
-    } else {
-      $upload['status']=1;
-      $upload['session'] = $this->updateImage($this->session->userdata['id'], $config['file_name']);
-      $upload['message'] = "Lampiran berhasil di upload";
-    }
+    $status['upload'] = $this->uploadPicture("display_picture_".$this->session->userdata['id']);
+    $status['status'] = $status['upload']['status'];
+    $this->updateData('account_'.$this->session->userdata['role'], 'id', $this->session->userdata['id'], 'display_picture', "display_picture_".$this->session->userdata['id']);
+    $status['session'] = $this->setSession($this->session->userdata['id']);
     return $upload;
   }
 
-  public function updateImage($id, $filename)
+  public function cDashboard()
   {
-    $where = array('id' => $id);
-    $data = array('display_picture' => $filename.'.jpg');
-    $this->db->where($where);
-    $this->db->update('account', $data);
-    $query = $this->getDataRow($this->session->userdata['id'], 'account');
-    $account['session'] = array (
-      'login' => true,
-      'id' => $query->id,
-      'username' => $query->username,
-      'password' => $query->password,
-      'fullname' => $query->fullname,
-      'email' => $query->email,
-      'phone' => $query->phone,
-      'display_picture' => $query->display_picture,
-      'other_info' => $query->other_info,
-      'role' => $query->role
-    );
-    return $account;
+    $data['title'] = 'Dashboard';
+    $data['view_name'] = 'no';
+    $data['notification'] = 'dashboard'.ucfirst($this->session->userdata['role']);
+    return $data;
   }
 
 }

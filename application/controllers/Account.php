@@ -39,28 +39,21 @@ class Account extends CI_Controller{
 
   public function dashboard()
   {
-    $data['title'] = 'Dashboard';
-    $data['view_name'] = 'no';
-    $data['notification'] = 'login2';
+    $data['content'] = $this->account_model->cDashboard();
     $this->load->view('template', $data);
   }
 
   public function profile()
   {
-    $data['content'] = $this->account_model->cProfile(0);
+    $update['status'] = 0;
     if ($this->input->post('updateAccount')) {
       $update = $this->account_model->updateAccount();
-      if ($update['status']==1) {
-        $this->session->set_userdata($update['session']);
-        $data['notification'] = 'updateSuccess';
-      } else {
-        $data['notification'] = 'updateError';
-      }
+      if ($update['status']==1) {$this->session->set_userdata($update['session']);}
     } elseif ($this->input->post('uploadFile')) {
-      $data['upload'] = $this->account_model->uploadPicture();
-      $data['notification'] = 'uploadStatus'.$data['upload']['status'];
-      $this->session->set_userdata($data['upload']['session']);
+      $update = $this->account_model->updatePicture();
+      if ($update['status']==1) {$this->session->set_userdata($update['session']);}
     }
+    $data['content'] = $this->account_model->cProfile($update['status']);
     $this->load->view('template', $data);
   }
 
