@@ -6,15 +6,22 @@ class Admin extends CI_Controller{
   {
     parent::__construct();
     $this->load->model('admin_model');
-    $this->load->model('warehouse_model');
     error_reporting(0);
     if (!$this->session->userdata['login']) {
       redirect(base_url('login'));
     } elseif ($this->session->userdata['role']!='admin') {
-      redirect(base_url('error/501'));
+      redirect(base_url('error404'));
     }
   }
 
+  public function webConf()
+  {
+    $update['status'] = 0;
+    if ($this->input->post('updateEmail')) {$this->admin_model->updateEmail();}
+    elseif ($this->input->post('updateWallpaper')) {$this->admin_model->updateWallpaper();}
+    $data['content'] = $this->admin_model->cWebConf($update['status']);
+    $this->load->view('template', $data);
+  }
 
   public function account()
   {
@@ -32,18 +39,6 @@ class Admin extends CI_Controller{
   {
     $this->admin_model->deleteAccount($id);
     redirect(base_url('account'));
-  }
-
-  public function webConf()
-  {
-    if ($this->input->post('updateEmail')) {
-      $this->admin_model->updateEmail();
-    }
-    $data['config'] = $this->admin_model->getDataRow(1,'webconf');
-    $data['title'] = 'Konfigurasi Website';
-    $data['view_name'] = 'webConf';
-    $data['notification'] = 'no';
-    $this->load->view('template', $data);
   }
 
   public function detailAccount($id)

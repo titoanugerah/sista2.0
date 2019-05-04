@@ -8,11 +8,98 @@ class Admin_model extends CI_model{
     $this->load->model('account_model');
   }
 
+  //core
   public function getAllData($table)
   {
     $query = $this->db->get($table);
     return $query->result();
   }
+
+  public function getDataRow($table, $var, $val)
+  {
+    $where = array($var => $val);
+    $query = $this->db->get_where($table, $where);
+    return $query->row();
+  }
+
+  public function getDataRow2($table, $var1, $val1, $var2, $val2)
+  {
+    $where = array($var1 => $val1, $var2 => $val2);
+    $data = $this->db->get_where($table, $where);
+    return $data->row();
+  }
+
+  public function getNumRows($table, $var, $val)
+  {
+    $where = array($var => $val);
+    $query = $this->db->get_where($table, $where);
+    return $query->num_rows();
+  }
+
+  public function getNumRows2($table, $var1, $val1, $var2, $val2)
+  {
+    $where = array($var1 => $val1, $var2 => $val2);
+    $data = $this->db->get_where($table, $where);
+    return $data->num_rows();
+  }
+
+  public function updateData($table, $varWhere, $valWhere, $varSet, $valSet)
+  {
+    $where = array($varWhere => $valWhere);
+    $data = array($varSet => $valSet);
+    $this->db->where($where);
+    $status = $this->db->update($table, $data);
+    return $status;
+  }
+
+  public function uploadPicture($filename)
+  {
+    $config['upload_path'] = APPPATH.'../assets/upload/';
+    $config['overwrite'] = TRUE;
+    $config['file_name']     = $filename;
+    $config['allowed_types'] = 'jpg|png';
+    $this->load->library('upload', $config);
+    if (!$this->upload->do_upload('fileUpload')) {
+      $upload['status']=0;
+      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
+    } else {
+      $upload['status']=1;
+      $upload['message'] = "File berhasil di upload";
+    }
+    return $upload;
+  }
+
+  //functional
+
+
+  //application
+  public function cWebConf($notification)
+  {
+    $data['config'] = $this->admin_model->getDataRow('webconf', 'id', 1);
+    $data['title'] = 'Konfigurasi Website';
+    $data['view_name'] = 'webConf';
+    $data['notification'] = 'webConf'.$notification;
+    return $data;
+  }
+
+  public function updateEmail()
+  {
+    $where = array('id' => 1 );
+    $data = array(
+      'host' => $this->input->post('host'),
+      'username' => $this->input->post('username'),
+      'password' => $this->input->post('password'),
+      'port' => $this->input->post('port'),
+      'crypto' => $this->input->post('crypto')
+    );
+    $this->db->where($where);
+    $update['status']  = $this->db->update('webconf',$data);
+    return $update;
+  }
+
+
+
+  //trash
 
   public function createAccount()
   {
@@ -34,27 +121,6 @@ class Admin_model extends CI_model{
   {
     $where = array('id' => $id);
     $this->db->delete('account',$where);
-  }
-
-  public function getDataRow($id, $table)
-  {
-    $where = array('id' => $id);
-    $query = $this->db->get_where($table, $where);
-    return $query->row();
-  }
-
-  public function updateEmail()
-  {
-    $where = array('id' => 1 );
-    $data = array(
-      'host' => $this->input->post('host'),
-      'username' => $this->input->post('username'),
-      'password' => $this->input->post('password'),
-      'port' => $this->input->post('port'),
-      'crypto' => $this->input->post('crypto')
-    );
-    $this->db->where($where);
-    $this->db->update('webconf',$data);
   }
 
   public function updateAccount($id)
@@ -95,14 +161,6 @@ class Admin_model extends CI_model{
      $this->db->insert('update_stock', $data);
   }
 
-  public function getSomeData($row, $id, $table)
-  {
-    $where = array($row => $id);
-    $query = $this->db->get_where($table, $where);
-    return $query->result();
-  }
-
-
   public function deleteItem($id)
   {
     $where = array('id' => $id );
@@ -127,5 +185,6 @@ class Admin_model extends CI_model{
     $this->db->where($where);
     $this->db->update($table, $data);
   }
+
 }
  ?>

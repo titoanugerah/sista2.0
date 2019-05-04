@@ -11,7 +11,6 @@ $route['logout'] = 'account/logout';
 $route['forgotPassword'] = 'account/forgotPassword';
 $route['dashboard'] = 'account/dashboard';
 $route['profile'] = 'account/profile';
-$route['error/(:any)'] = 'account/error/$1';
 
 #ADMIN AREA
 $route['webConf'] = 'admin/webConf';
