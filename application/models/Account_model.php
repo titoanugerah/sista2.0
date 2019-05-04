@@ -52,6 +52,23 @@ class Account_model extends CI_model{
     return $status;
   }
 
+  public function uploadPicture($filename)
+  {
+    $config['upload_path'] = APPPATH.'../assets/upload/';
+    $config['overwrite'] = TRUE;
+    $config['file_name']     = $filename;
+    $config['allowed_types'] = 'jpg|png';
+    $this->load->library('upload', $config);
+    if (!$this->upload->do_upload('fileUpload')) {
+      $upload['status']=0;
+      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
+    } else {
+      $upload['status']=1;
+      $upload['message'] = "File berhasil di upload";
+    }
+    return $upload;
+  }
+
   //functional
   public function findUsername($username)
   {
@@ -140,24 +157,6 @@ class Account_model extends CI_model{
     return $data;
   }
 
-  public function uploadPicture($filename)
-  {
-    $config['upload_path'] = APPPATH.'../assets/upload/';
-    $config['overwrite'] = TRUE;
-    $config['file_name']     = $filename;
-    $config['allowed_types'] = 'jpg|png';
-    $config['max_width']  = 800;
-    $config['max_height'] = 800;
-    $this->load->library('upload', $config);
-    if (!$this->upload->do_upload('image_address')) {
-      $upload['status']=0;
-      $upload['message']= "Mohon maaf terjadi error saat proses upload : ".$this->upload->display_errors();
-    } else {
-      $upload['status']=1;
-      $upload['message'] = "File berhasil di upload";
-    }
-    return $upload;
-  }
   //application
   public function cLogin($notification)
   {
@@ -231,10 +230,17 @@ class Account_model extends CI_model{
   public function updatePicture()
   {
     $status['upload'] = $this->uploadPicture("display_picture_".$this->session->userdata['id']);
-    $status['status'] = $status['upload']['status'];
-    $this->updateData('account_'.$this->session->userdata['role'], 'id', $this->session->userdata['id'], 'display_picture', "display_picture_".$this->session->userdata['id']);
+    $status['status'] = $status['upload']['status']+3;
+    $this->updateData('account_'.$this->session->userdata['role'], 'id', $this->session->userdata['id'], 'display_picture', "display_picture_".$this->session->userdata['id'].'.jpg');
     $status['session'] = $this->setSession($this->session->userdata['id']);
-    return $upload;
+    return $status;
+  }
+
+  public function deleteDP($filename)
+  {
+    $status['status'] = $this->updateData('account_'.$this->session->userdata['role'], 'id', $this->session->userdata['id'], 'display_picture', 'no.jpg');
+    $status['session'] = $this->setSession($this->session->userdata['id']);
+    return $status;
   }
 
   public function cDashboard()
@@ -242,6 +248,14 @@ class Account_model extends CI_model{
     $data['title'] = 'Dashboard';
     $data['view_name'] = 'no';
     $data['notification'] = 'dashboard'.ucfirst($this->session->userdata['role']);
+    return $data;
+  }
+
+  public function cError404()
+  {
+    $data['title'] = 'Error';
+    $data['view_name'] = 'no';
+    $data['notification'] = 'error404';
     return $data;
   }
 

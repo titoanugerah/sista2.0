@@ -86,7 +86,7 @@
             <div class="file-field">
               <div class="btn btn-primary btn-sm float-left">
                 <span>Choose file</span>
-                <input type="file" name="image_address">
+                <input type="file" name="fileUpload">
               </div>
             </div>
           </div>
@@ -94,6 +94,7 @@
 
         <div class="modal-footer modal-danger">
           <button type="submit" class="btn btn-warning" name="uploadFile" value="uploadFile">Upload</button>
+          <button type="submit" class="btn btn-danger" name="deleteFile" value="deleteFile">Hapus Foto</button>
           <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
       </div>
     </div>

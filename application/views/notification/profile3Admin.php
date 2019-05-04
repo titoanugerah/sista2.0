@@ -1,3 +1,3 @@
 <div class="alert alert-danger alert-with-icon" data-notify="container">
-  Proses pembaharuan profil gagal
+ <?php echo $content['upload']['message']; ?>
 </div>

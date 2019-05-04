@@ -45,31 +45,25 @@ class Account extends CI_Controller{
 
   public function profile()
   {
-    $update['status'] = 0;
+    $update['status'] = 2;
     if ($this->input->post('updateAccount')) {
       $update = $this->account_model->updateAccount();
       if ($update['status']==1) {$this->session->set_userdata($update['session']);}
     } elseif ($this->input->post('uploadFile')) {
       $update = $this->account_model->updatePicture();
-      if ($update['status']==1) {$this->session->set_userdata($update['session']);}
+      if ($update['status']==4) {$this->session->set_userdata($update['session']);}
+    } elseif ($this->input->post('deleteFile')) {
+      $delete = $this->account_model->deleteDP($this->session->userdata['display_picture']);
+      if ($delete['status']==1) {$this->session->set_userdata($delete['session']);}
     }
     $data['content'] = $this->account_model->cProfile($update['status']);
     $this->load->view('template', $data);
   }
 
-  public function error($id)
-  {
-    $data['title'] = 'Error';
-    $data['view_name'] = 'no';
-    $data['notification'] = 'error'.$id;
-    $this->load->view('template', $data);
-  }
 
   public function error404()
   {
-    $data['title'] = 'Error';
-    $data['view_name'] = 'no';
-    $data['notification'] = 'error404';
+    $data['content'] = $this->account_model->cError404();
     $this->load->view('template', $data);
   }
 }

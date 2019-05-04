@@ -1,3 +1,3 @@
 <div class="alert alert-danger alert-with-icon" data-notify="container">
-  Proses pembaharuan profil gagal
+Alamat  yang anda masukan belum tersedia atau sedang dalam masa perbaikan 
 </div>
