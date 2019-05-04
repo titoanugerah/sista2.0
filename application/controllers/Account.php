@@ -47,8 +47,7 @@ class Account extends CI_Controller{
 
   public function profile()
   {
-    $data['content'] = $this->account_model->cProfile();
-    $data['notification'] = 'no';
+    $data['content'] = $this->account_model->cProfile(0);
     if ($this->input->post('updateAccount')) {
       $update = $this->account_model->updateAccount();
       if ($update['status']==1) {
@@ -62,8 +61,6 @@ class Account extends CI_Controller{
       $data['notification'] = 'uploadStatus'.$data['upload']['status'];
       $this->session->set_userdata($data['upload']['session']);
     }
-    $data['title'] = 'Profil';
-    $data['view_name'] = 'profile';
     $this->load->view('template', $data);
   }
 

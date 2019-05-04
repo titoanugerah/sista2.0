@@ -1,7 +1,6 @@
 <div class="row">
   <div class="col-md-8">
     <div class="card">
-
       <div class="card-body">
         <form method="post">
           <h3>Edit Profil</h3>
@@ -9,7 +8,7 @@
             <div class="col-md-6 pr-1">
               <div class="form-group">
                 <label>Username</label>
-                <input type="text" name="username" class="form-control" placeholder="Masukan username" value="<?php echo $this->session->userdata['username']; ?>" required>
+                <input type="text" name="username" class="form-control" placeholder="Masukan username " value="<?php echo $this->session->userdata['username']; ?>" required>
               </div>
             </div>
             <div class="col-md-6 pl-1">
@@ -36,8 +35,8 @@
             </div>
             <div class="col-md-6 pl-1">
               <div class="form-group">
-                <label>Nomor Telepon</label>
-                <input type="text" name="phone" class="form-control" placeholder="Masukan nomor telepon anda" value="<?php echo $this->session->userdata['phone']; ?>" required>
+                <label>NIP</label>
+                <input type="text" name="nip" class="form-control" placeholder="Masukan nomor induk pegawai anda" value="<?php echo $this->session->userdata['nip']; ?>" required>
               </div>
             </div>
           </div>
@@ -82,7 +81,7 @@
         </div>
 
         <div class="modal-body">
-          <p>Silahkan upload bukti foto dengan format jpg</p>
+          <p>Silahkan upload foto anda dengan ukuran file maksimal 200kb</p>
           <div class="md-form">
             <div class="file-field">
               <div class="btn btn-primary btn-sm float-left">

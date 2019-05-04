@@ -8,7 +8,7 @@
   <link rel="apple-touch-icon" sizes="76x76" href="<?php echo base_url('./assets/template/material/');?>assets/img/apple-icon.png">
   <link rel="icon" type="image/png" href="<?php echo base_url('./assets/image/undip-original.png'); ?>">
   <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
-  <title>SISTA | <?php echo $title; ?></title>
+  <title>SISTA | <?php echo $content['title']; ?></title>
   <meta content='width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0, shrink-to-fit=no' name='viewport' />
   <!--     Fonts and icons     -->
   <link rel="stylesheet" type="text/css" href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700|Roboto+Slab:400,700|Material+Icons" />
@@ -36,7 +36,7 @@
       <nav class="navbar navbar-expand-lg navbar-transparent navbar-absolute fixed-top ">
         <div class="container-fluid">
           <div class="navbar-wrapper">
-            <h2>&nbsp;<?php echo "".$title; ?></h2>
+            <h2>&nbsp;<?php echo "".$content['title']; ?></h2>
           </div>
           <button class="navbar-toggler" type="button" data-toggle="collapse" aria-controls="navigation-index" aria-expanded="false" aria-label="Toggle navigation">
             <span class="sr-only">Toggle navigation</span>
@@ -65,10 +65,10 @@
           <ol class="breadcrumb" style="background:white;">
             <li class="breadcrumb-item">SISTA</li>
             <li class="breadcrumb-item"><?php echo ucfirst($this->session->userdata['role']); ?></li>
-            <li class="breadcrumb-item active"><?php echo ucfirst($title); ?></li>
+            <li class="breadcrumb-item active"><?php echo ucfirst($content['title']); ?></li>
           </ol>
-          <?php $this->load->view('notification/'.$notification); ?>
-          <?php $this->load->view($this->session->userdata['role'].'/'.$view_name); ?>
+          <?php $this->load->view('notification/'.$content['notification']); ?>
+          <?php $this->load->view($this->session->userdata['role'].'/'.$content['view_name']); ?>
         </div>
       </div>
       <footer class="footer">

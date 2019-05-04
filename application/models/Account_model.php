@@ -95,6 +95,51 @@ class Account_model extends CI_model{
     error_reporting(0);
   }
 
+  public function setSession($id)
+  {
+//    $query = $this->getDataRow2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
+    $query = $this->getDataRow('account', 'id', $id);
+    $account = $this->getDataRow('view_'.$query->role,'id', $id);
+    if ($query->role=='admin') {
+      $data= array(
+        'login' => true,
+        'role' => $query->role,
+        'id' => $account->id,
+        'username' => $account->username,
+        'password' => $account->password,
+        'fullname' => $account->fullname,
+        'email' => $account->email,
+        'nip' => $account->nip,
+        'display_picture' => $account->display_picture,
+       );
+    } elseif ($query->role=='dosen') {
+      $data = array(
+        'login' => true,
+        'role' => $query->role,
+        'id' => $account->id,
+        'username' => $account->username,
+        'password' => $account->password,
+        'fullname' => $account->fullname,
+        'email' => $account->email,
+        'nip' => $account->nip,
+        //tambahin
+       );
+    } elseif ($query->role=='mahasiswa') {
+      $data = array(
+        'login' => true,
+        'role' => $query->role,
+        'id' => $account->id,
+        'username' => $account->username,
+        'password' => $account->password,
+        'fullname' => $account->fullname,
+        'email' => $account->email,
+        'nip' => $account->nip,
+        //tambahin
+       );
+    }
+    return $data;
+  }
+
   //application
   public function cLogin($notification)
   {
@@ -110,45 +155,7 @@ class Account_model extends CI_model{
   {
     $data['status'] = $this->getNumRows2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
     if ($data['status']==1) {
-      $query = $this->getDataRow2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')));
-      $account = $this->getDataRow('view_'.$query->role,'id', $query->id);
-      if ($query->role=='admin') {
-        $data['account'] = array(
-          'login' => true,
-          'role' => $query->role,
-          'id' => $account->id,
-          'username' => $account->username,
-          'password' => $account->password,
-          'fullname' => $account->fullname,
-          'email' => $account->email,
-          'nip' => $account->nip,
-          'display_picture' => $account->display_picture,
-         );
-      } elseif ($query->role=='dosen') {
-        $data['account'] = array(
-          'login' => true,
-          'role' => $query->role,
-          'id' => $account->id,
-          'username' => $account->username,
-          'password' => $account->password,
-          'fullname' => $account->fullname,
-          'email' => $account->email,
-          'nip' => $account->nip,
-          //tambahin
-         );
-      } elseif ($query->role=='mahasiswa') {
-        $data['account'] = array(
-          'login' => true,
-          'role' => $query->role,
-          'id' => $account->id,
-          'username' => $account->username,
-          'password' => $account->password,
-          'fullname' => $account->fullname,
-          'email' => $account->email,
-          'nip' => $account->nip,
-          //tambahin
-         );
-      }
+      $data['account'] = $this->setSession($this->getDataRow2('account', 'username', $this->input->post('username'), 'password', md5($this->input->post('password')))->id);
     }
     return $data;
   }
@@ -171,42 +178,29 @@ class Account_model extends CI_model{
     return $validation['status'];
   }
 
-
-  public function resetPassword1($id)
+  public function cProfile($notification)
   {
-    $newPassword = rand(100000, 999999);
-    $data = array(
-      'password' => md5($newPassword)
-    );
-    $where = array('id' => $id);
-    $this->db->where($where);
-    $this->db->update('account', $data);
-    $message = "Bersamaan dengan email ini kami informasikan bahwa password akun anda berhasil direset, password baru anda adalah ".$newPassword;
-    $this->sentEmail($id, $message);
+    $data['notification'] = 'profile'.$notification.$this->session->userdata['role'];
+    $data['view_name'] = 'profile';
+    $data['title'] = 'Profil';
+    return $data;
   }
-
 
   public function updateAccount()
   {
     $where = array('id' => $this->session->userdata['id']);
     if ($this->input->post('password')=="") {
-      $data = array(
-        'username' => $this->input->post('username'),
-        'fullname' => $this->input->post('fullname'),
-        'phone' => $this->input->post('phone'),
-        'email' => $this->input->post('email')
-      );
+      $this->updateData('account', 'id', $this->session->userdata['id'], 'username', $this->input->post('username'));
     } else {
-      $data = array(
-        'username' => $this->input->post('username'),
-        'password' => md5($this->input->post('password')),
-        'fullname' => $this->input->post('fullname'),
-        'phone' => $this->input->post('phone'),
-        'email' => $this->input->post('email')
-      );
+      $this->updateData('account', 'id', $this->session->userdata['id'], 'username', $this->input->post('username'));
+      $this->updateData('account', 'id', $this->session->userdata['id'], 'password', md5($this->input->post('username')));
     }
-    $this->db->where($where);
-    $account['status'] = $this->db->update('account', $data);
+
+    if ($this->session->userdata['role']=='admin') {
+      $data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
+      $this->db->where($where);
+      $this->db->update('account_'.$this->session->userdata['role'], $data);
+    }
     $query = $this->getDataRow($this->session->userdata['id'], 'account');
     $account['session'] = array (
       'login' => true,
