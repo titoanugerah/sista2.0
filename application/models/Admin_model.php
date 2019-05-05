@@ -105,6 +105,16 @@ class Admin_model extends CI_model{
     return $status;
   }
 
+  public function cAccount($notification)
+  {
+    $data['mahasiswa'] = $this->admin_model->getAllData('view_mahasiswa');
+    $data['dosen'] = $this->admin_model->getAllData('view_dosen');
+    $data['title'] = 'Pengaturan Akun';
+    $data['view_name'] = 'account';
+    $data['notification'] = 'account'.$notification;
+    return $data;
+  }
+
 
 
 
@@ -148,54 +158,6 @@ class Admin_model extends CI_model{
     $this->db->update('account', $data);
   }
 
-  public function createItem()
-  {
-    $data = array(
-      'item' => $this->input->post('item'),
-      'stock' => $this->input->post('stock'),
-      'id_pic' => $this->session->userdata['id'],
-     );
-
-     $this->db->insert('item', $data);
-     $this->updateStockItem($this->db->insert_id(), $this->input->post('stock'), $this->input->post('batch'));
-  }
-
-  public function updateStockItem($id_item, $qty_in, $batch)
-  {
-    $data = array(
-      'id_item' => $id_item,
-      'qty_in' => $qty_in,
-      'id_pic' => $this->session->userdata['id'],
-      'information' => 'Barang masuk ke gudang ',
-      'batch' => $batch
-     );
-     $this->db->insert('update_stock', $data);
-  }
-
-  public function deleteItem($id)
-  {
-    $where = array('id' => $id );
-    $this->db->delete('item', $where);
-  }
-
-  public function updateItem($id)
-  {
-    $where = array('id' => $id );
-    $data = array(
-      'item' => $this->input->post('item'),
-  #    'stock' => $this->input->post('stock'),
-     );
-     $this->db->where($where);
-     $this->db->update('item', $data);
-  }
-
-  public function updateStatus($table, $param, $id, $value)
-  {
-    $where = array($param => $id );
-    $data = array('status' => $value );
-    $this->db->where($where);
-    $this->db->update($table, $data);
-  }
 
 }
  ?>
