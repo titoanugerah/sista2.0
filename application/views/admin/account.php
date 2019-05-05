@@ -97,7 +97,27 @@
                 </div>
                 <div class="tab-pane" id="createNew">
                   <div class="card-body">
-
+                    <div class="card-body">
+                      <form method="post">
+                        <div class="row">
+                          <div class="col-md-6 pr-1">
+                            <div class="form-group">
+                              <label>Username</label>
+                              <input type="text" name="username" class="form-control" placeholder="Masukan username" required>
+                            </div>
+                          </div>
+                          <div class="col-md-6 pl-1">
+                            <div class="form-group">
+                              <label>Email</label>
+                              <input type="email" name="email" class="form-control" placeholder="Masukan email" >
+                            </div>
+                          </div>
+                        </div>
+                        <div class="button-container">
+                          <button type="submit" name="createAccount" value="createAccount" class="btn btn-primary">Simpan Data</button>
+                        </div>
+                      </form>
+                    </div>
                   </div>
                 </div>
               </div>

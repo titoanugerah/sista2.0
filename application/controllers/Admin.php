@@ -27,9 +27,7 @@ class Admin extends CI_Controller{
   public function account()
   {
     $create['status'] = 0;
-    if ($this->input->post('createAccount')) {
-      $this->admin_model->createAccount();
-    }
+    if ($this->input->post('createAccount')) {$this->admin_model->createAccount();}
     $data['content'] = $this->admin_model->cAccount($create['status']);
     $this->load->view('template', $data);
   }
