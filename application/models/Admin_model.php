@@ -97,6 +97,17 @@ class Admin_model extends CI_model{
     return $update;
   }
 
+  public function updateWallpaper()
+  {
+    $status['upload'] = $this->uploadPicture('login_image');
+    $status['status'] = $status['upload']['status'];
+    $this->updateData('webconf', 'id', 1, 'login_image', 'login_image.jpg');
+    return $status;
+  }
+
+
+
+
 
 
   //trash

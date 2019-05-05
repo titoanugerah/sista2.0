@@ -19,6 +19,7 @@ class Admin extends CI_Controller{
     $update['status'] = 0;
     if ($this->input->post('updateEmail')) {$this->admin_model->updateEmail();}
     elseif ($this->input->post('updateWallpaper')) {$this->admin_model->updateWallpaper();}
+    elseif ($this->input->post('resetWallpaper')) {$this->admin_model->updateData('webconf', 'id', 1, 'login_image', 'default.jpg');}
     $data['content'] = $this->admin_model->cWebConf($update['status']);
     $this->load->view('template', $data);
   }

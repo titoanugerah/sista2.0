@@ -82,49 +82,43 @@
                   <img src="<?php echo base_url('assets/upload/'.$content['config']->login_image); ?>" style="width: auto !important;height: auto !important;max-width: 100%;">
                 </div>
                 <form class=""  method="post">
-                  <button type="submit" name="restoreBG" value="restoreBG" class="btn btn-warning">Pasang Foto Default</button>
+                  <button type="submit" name="resetWallpaper" value="resetWallpaper" class="btn btn-warning">Pasang Foto Default</button>
                   <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Update Foto</button>
                 </form>
-
               </div>
             </div>
           </div>
         </div>
-
       </div>
     </div>
   </div>
-
 
   <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
     <div class="modal-dialog" role="document">
       <form  method="post" enctype="multipart/form-data">
       <div class="modal-content">
-
-          <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
-          </div>
-
-          <div class="modal-body">
-            <p>Silahkan upload foto dengan format jpg</p>
-            <div class="md-form">
-              <div class="file-field">
-                <div class="btn btn-primary btn-sm float-left">
-                  <span>Choose file</span>
-                  <input type="file" name="login_image">
-                </div>
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Silahkan upload foto dengan format jpg</p>
+          <div class="md-form">
+            <div class="file-field">
+              <div class="btn btn-primary btn-sm float-left">
+                <span>Choose file</span>
+                <input type="file" name="fileUpload">
               </div>
             </div>
           </div>
-
-          <div class="modal-footer modal-danger">
-            <button type="submit" class="btn btn-warning" name="uploadBG" value="uploadBG">Upload</button>
-            <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
+        </div>
+        <div class="modal-footer modal-danger">
+          <button type="submit" class="btn btn-warning" name="updateWallpaper" value="updateWallpaper">Upload</button>
+          <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
         </div>
       </div>
     </form>
-    </div>
   </div>
+</div>

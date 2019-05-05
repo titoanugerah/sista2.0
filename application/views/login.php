@@ -42,7 +42,7 @@
   </nav>
   <!-- End Navbar -->
   <div class="page-header clear-filter" filter-color="orange">
-    <div class="page-header-image" style="background-image:url(<?php echo base_url('./assets/template/uikit'); ?>/assets/img/login.jpg)"></div>
+    <div class="page-header-image" style="background-image:url(<?php echo base_url('./assets/upload/'.$content['webconf']->login_image); ?>)"></div>
     <div class="content">
       <div class="container">
         <div class="col-md-4 ml-auto mr-auto">
