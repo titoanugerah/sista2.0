@@ -15,7 +15,6 @@ $route['profile'] = 'account/profile';
 #ADMIN AREA
 $route['webConf'] = 'admin/webConf';
 $route['account'] = 'admin/account';
-//
 $route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['deleteAccount/(:any)'] = 'admin/deleteAccount/$1';
 $route['itemList'] = 'admin/itemList';

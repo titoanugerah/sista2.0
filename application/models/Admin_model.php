@@ -69,6 +69,39 @@ class Admin_model extends CI_model{
     return $upload;
   }
 
+  public function sentEmail($id, $subject, $message)
+  {
+    $account = $this->getDataRow('view_'.$this->getDataRow('account', 'id', $id)->role, 'id', $id);
+    $emailConf = $this->getDataRow('webconf', 'id', 1);
+    $config = [
+      'protocol' => 'sentmail',
+      'smtp_host' => $emailConf->host,
+      'smtp_user' => $emailConf->username,
+      'smtp_pass' => $emailConf->password,
+      'smtp_crypto' => $emailConf->crypto,
+      'charset' => 'utf-8',
+      'crlf' => 'rn',
+      'newline' => "\r\n", //REQUIRED! Notice the double quotes!
+      'smtp_port' => $emailConf->port
+    ];
+    $this->load->library('email', $config);
+    $this->email->from($emailConf->email);
+    $this->email->to($account->email);
+    $this->email->subject($subject);
+    $this->email->message('
+    Yth. '.$account->fullname.'
+    Di tempat.
+
+    '.$message.'
+
+    Atas perhatiannya kami ucapkan terima kasih.
+
+    Admin
+    ');
+    $sent = $this->email->send();
+    error_reporting(0);
+  }
+
   //functional
 
 
@@ -115,14 +148,33 @@ class Admin_model extends CI_model{
     return $data;
   }
 
+  public function createAccount()
+  {
+    $password = rand(100001,999999);
+    $data = array('username' => $this->input->post('username'), 'role' => $this->input->post('role'), 'password'=>md5($password));
+    $this->db->insert('account', $data);
+    $id = $this->db->insert_id();
+    $data = array('id' => $id, 'email' => $this->input->post('email'),'display_picture'=> 'no.jpg');
+    $this->db->insert('account_'.$this->input->post('role'),$data);
+    $content = "Bersamaan dengan email ini kami informasikan bahwa proses pendaftaran akun anda sudah berhasil, silahkan login ke http://sista.co.id/ dengan username :".$this->input->post('username')." dan password : ".$password;
+    $status = $this->sentEmail($id, 'Selamat datang di SISTA', $content);
+    return $status;
+  }
 
-
+  public function cDetailAccount($id, $notification)
+  {
+    $data['account'] = $this->admin_model->getDataRow('view_'.$this->getDataRow('account', 'id', $id)->role, 'id', $id);
+    $data['title'] = 'Detail Akun @'.$data['account']->username;
+    $data['view_name'] = 'detailAccount';
+    $data['notification'] = 'detailAccount'.$notification;
+    return $data;
+  }
 
 
 
   //trash
 
-  public function createAccount()
+  public function createAccount1()
   {
     $data = array(
       'username' => $this->input->post('username'),

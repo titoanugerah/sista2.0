@@ -27,28 +27,27 @@ class Admin extends CI_Controller{
   public function account()
   {
     $create['status'] = 0;
-    if ($this->input->post('createAccount')) {$this->admin_model->createAccount();}
+    if ($this->input->post('createAccount')) {$create = $this->admin_model->createAccount();}
     $data['content'] = $this->admin_model->cAccount($create['status']);
     $this->load->view('template', $data);
   }
 
-  public function deleteAccount($id)
+  public function detailAccount($id)
   {
-    $this->admin_model->deleteAccount($id);
-    redirect(base_url('account'));
+    $create['status'] = 0;
+    if ($this->input->post('createAccount')) {$create = $this->admin_model->createAccount();}
+    $data['content'] = $this->admin_model->cDetailAccount($id, $create['status']);
+    $this->load->view('template', $data);
   }
 
-  public function detailAccount($id)
+
+  public function detailAccount1($id)
   {
     if ($this->input->post('back')) {
       redirect(base_url('account'));
     } elseif ($this->input->post('updateAccount')) {
       $this->admin_model->updateAccount($id);
     }
-    $data['account'] = $this->admin_model->getDataRow($id,'account');
-    $data['title'] = 'Detail Akun '.$data['account']->username;
-    $data['view_name'] = 'detailAccount';
-    $data['notification'] = 'no';
     $this->load->view('template', $data);
   }
 

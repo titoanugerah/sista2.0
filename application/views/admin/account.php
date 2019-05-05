@@ -100,16 +100,40 @@
                     <div class="card-body">
                       <form method="post">
                         <div class="row">
-                          <div class="col-md-6 pr-1">
+                          <div class="col-md-4 pr-1">
                             <div class="form-group">
                               <label>Username</label>
                               <input type="text" name="username" class="form-control" placeholder="Masukan username" required>
                             </div>
                           </div>
-                          <div class="col-md-6 pl-1">
+                          <div class="col-md-4 pl-1">
                             <div class="form-group">
                               <label>Email</label>
                               <input type="email" name="email" class="form-control" placeholder="Masukan email" >
+                            </div>
+                          </div>
+                          <div class="col-md-4 pl-1">
+                            <div class="form-group">
+                              <div class="form-check form-check-radio">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="role" value="dosen" >
+                                  Dosen
+                                  <span class="circle">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                              </div>
+                              <div class="form-check form-check-radio">
+                                <label class="form-check-label">
+                                  <input class="form-check-input" type="radio" name="role" value="mahasiswa" >
+                                  Mahasiswa
+                                  <span class="circle">
+                                    <span class="check"></span>
+                                  </span>
+                                </label>
+                              </div>
+
+
                             </div>
                           </div>
                         </div>
