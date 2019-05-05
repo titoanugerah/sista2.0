@@ -50,7 +50,7 @@
   <div class="col-md-4">
     <div class="card card-user">
       <div class="image">
-        <img src="<?php echo base_url('./assets/upload/'.$this->session->userdata['display_picture'])?>" alt="..." style="width:330px">
+        <img src="<?php echo base_url('./assets/upload/'.$this->session->userdata['display_picture'])?>" style="width: auto !important;height: auto !important;max-width: 100%;">
       </div>
       <div class="card-body">
         <center>

@@ -102,7 +102,18 @@ class Admin_model extends CI_model{
     error_reporting(0);
   }
 
+  public function deleteData($table, $var, $val)
+  {
+    $where = array($var => $val);
+    $query = $this->db->delete($table, $where);
+    return $query;
+  }
+
   //functional
+  public function getRole($id)
+  {
+    return $this->getDataRow('account', 'id', $id)->role;
+  }
 
 
   //application
@@ -165,36 +176,18 @@ class Admin_model extends CI_model{
   {
     $data['account'] = $this->admin_model->getDataRow('view_'.$this->getDataRow('account', 'id', $id)->role, 'id', $id);
     $data['title'] = 'Detail Akun @'.$data['account']->username;
-    $data['view_name'] = 'detailAccount';
+    $data['view_name'] = 'detailAccount'.ucfirst($this->getDataRow('account', 'id', $id)->role);
     $data['notification'] = 'detailAccount'.$notification;
     return $data;
   }
 
-
-
-  //trash
-
-  public function createAccount1()
-  {
-    $data = array(
-      'username' => $this->input->post('username'),
-      'fullname' => $this->input->post('fullname'),
-      'phone' => $this->input->post('phone'),
-      'email' => $this->input->post('email'),
-      'role' => $this->input->post('role'),
-      'display_picture' => 'no.jpg',
-      'password' => md5('0000')
-     );
-
-     $this->db->insert('account', $data);
-     $this->account_model->sentEmail($this->db->insert_id(), "Akun anda berhasil dibuat, silahkan login dengan usename ".$this->input->post('username').' dengan password 0000');
-  }
-
   public function deleteAccount($id)
   {
-    $where = array('id' => $id);
-    $this->db->delete('account',$where);
+    $this->deleteData('account', 'id', $id);
+    return $this->deleteData('account_'.$getRole($id), 'id', $id);
   }
+
+  //trash
 
   public function updateAccount($id)
   {

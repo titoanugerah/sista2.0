@@ -34,9 +34,9 @@ class Admin extends CI_Controller{
 
   public function detailAccount($id)
   {
-    $create['status'] = 0;
-    if ($this->input->post('createAccount')) {$create = $this->admin_model->createAccount();}
-    $data['content'] = $this->admin_model->cDetailAccount($id, $create['status']);
+    $delete['status'] = 0;
+    if ($this->input->post('deleteAccount')) {$delete = $this->admin_model->deleteAccount($id);}
+    $data['content'] = $this->admin_model->cDetailAccount($id, $delete['status']);
     $this->load->view('template', $data);
   }
 
