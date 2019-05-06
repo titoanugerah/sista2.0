@@ -47,7 +47,7 @@
           </div>
         </div>
         <div class="button-container">
-          <button type="submit" name="deleteAccount" value="deleteAccount" class="btn btn-danger">Hapus Akun</button>
+          <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus Akun</button>
           <a href="<?php echo base_url('account'); ?>"><button type="button" class="btn btn-warning">Kembali</button></a>
         </div>
       </form>
@@ -70,4 +70,31 @@
     </div>
   </div>
 
+</div>
+
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <form  method="post">
+      <div class="modal-content">
+
+        <div class="modal-header">
+          <h5 class="modal-title" id="exampleModalLabel">Hapus Akun ?</h5>
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body">
+          <p>Apabila anda sudah yakin menghapus akun ini? silahkan lanjutkan dengan memasukan password akun anda</p>
+          <div class="form-group">
+            <input type="password" name="password" class="form-control" placeholder="Masukan password akun anda" value=""  required>
+          </div>
+        </div>
+
+        <div class="modal-footer modal-danger">
+          <button type="submit" class="btn btn-danger" name="deleteAccount" value="deleteAccount">Hapus Akun</button>
+          <button type="button" class="btn btn-grey" data-dismiss="modal">Kembali</button>
+        </div>
+      </div>
+    </form>
+  </div>
 </div>

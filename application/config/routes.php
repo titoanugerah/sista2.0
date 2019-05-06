@@ -17,7 +17,7 @@ $route['webConf'] = 'admin/webConf';
 $route['account'] = 'admin/account';
 $route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['theme'] = 'admin/theme';
-$route['detailItem/(:any)'] = 'admin/detailItem/$1';
+$route['detailTheme/(:any)'] = 'admin/detailTheme/$1';
 $route['recapOrder'] = 'admin/recapOrder';
 $route['detailRecapOrder/(:any)'] = 'admin/detailRecapOrder/$1';
 

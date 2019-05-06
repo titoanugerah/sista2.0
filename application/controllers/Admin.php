@@ -46,71 +46,18 @@ class Admin extends CI_Controller{
     if ($this->input->post('createTheme')) {$operation = $this->admin_model->createTheme($id);}
     $data['content'] = $this->admin_model->cTheme($operation['status']);
     $this->load->view('template', $data);
-
   }
 
-///////
-  public function itemList()
+  public function detailTheme($id)
   {
-    if ($this->input->post('createItem')) {
-      $this->admin_model->createItem();
-      redirect(base_url('itemList'));
-    }
-    $data['list'] = $this->admin_model->getAllData('view_item');
-    $data['title'] = 'Stok Item';
-    $data['view_name'] = 'itemList';
-    $data['notification'] = 'no';
-    $this->load->view('template', $data);
-  }
-
-  public function detailItem($id)
-  {
-    $data['notification'] = 'no';
-    if ($this->input->post('deleteItem')) {
-      if (md5($this->input->post('password'))==$this->session->userdata['password']) {
-        $this->admin_model->deleteItem($id);
-        redirect(base_url('itemList'));
-      } else {
-        $data['notification'] = 'wrongPassword';
-      }
-    } elseif ($this->input->post('updateItem')) {
-      $data['notification'] = 'updateItemSuccess';
-      $this->admin_model->updateItem($id);
-    }
-    $data['stock'] = $this->warehouse_model->getSomeData('id_item',$id,'view_stock');
-    $data['detail'] = $this->admin_model->getDataRow($id,'view_item');
-    $data['title'] = 'Detail Item '.$data['detail']->item;
-    $data['view_name'] = 'detailItem';
+    $operation['status'] = 0;
+    if ($this->input->post('updateTheme')) {$operation = $this->admin_model->updateTheme($id);}
+    elseif ($this->input->post('deleteTheme')) {$operation = $this->admin_model->deleteTheme($id); if($operation['status']==5){redirect(base_url($operation['redirect']));}}
+    $data['content'] = $this->admin_model->cDetailTheme($id, $operation['status']);
     $this->load->view('template', $data);
 
   }
 
-  public function recapOrder()
-  {
-    $data['notification'] = 'no';
-    $data['recap'] = $this->admin_model->getAllData('global_invoice');
-//    $data['detail'] = $this->admin_model->getDataRow($id,'view_item');
-    $data['title'] = 'Pemesanan Barang';
-    $data['view_name'] = 'recapOrder';
-    $this->load->view('template', $data);
-  }
 
-  public function detailRecapOrder($id)
-  {
-    if ($this->input->post('agreeOrder')) {
-      $this->admin_model->updateStatus('global_invoice', 'id', $id, 2);
-      $data['detailOrder'] = $this->admin_model->getSomeData('id_global_invoice', $id, 'view_detail_order');
-      foreach ($data['detailOrder'] as $item) {
-        $this->admin_model->updateStatus('detail_order', 'id', $item->id, 2);
-      }
-    }
-    $data['notification'] = 'no';
-    $data['recap'] = $this->warehouse_model->getSomeData('id_global_invoice', $id, 'view_global_order');
-    $data['dc'] = $this->admin_model->getSomeData('id_global_invoice',$id, 'view_dc_order');
-    $data['detail'] = $this->admin_model->getDataRow($id, 'global_invoice' );
-    $data['title'] = 'Pemesanan Barang';
-    $data['view_name'] = 'detailRecapOrder';
-    $this->load->view('template', $data);
-  }
 }
  ?>

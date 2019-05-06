@@ -184,9 +184,13 @@ class Admin_model extends CI_model{
 
   public function deleteAccount($id)
   {
-    $delete['status'] = $this->deleteData('account_'.$this->getRole($id), 'id', $id);
-    $this->deleteData('account', 'id', $id);
-    return (int)$delete+1;
+    if (md5($this->input->post('password'))==$this->session->userdata['password']) {
+      $delete['status'] = $this->deleteData('account_'.$this->getRole($id), 'id', $id);
+      $this->deleteData('account', 'id', $id);
+    } else {
+      $delete['status'] = 0;
+    }
+    return (int)$delete['status']+1;
   }
 
 
@@ -204,9 +208,37 @@ class Admin_model extends CI_model{
     $operation['status'] = $this->db->insert('tema', array('nama_tema' => $this->input->post('nama_tema')));
     return $operation;
   }
-  //trash
 
+  public function cDetailTheme($id, $notification)
+  {
+    $data['detail'] = $this->getDataRow('view_tema', 'id', $id);
+    $data['listDosen'] = $this->db->query('select * from view_dosen where id_tema_1 = '.$id.' or id_tema_2 = '.$id)->result();
+    $data['title'] = 'Detail Tema';
+    $data['view_name'] = 'detailTheme';
+    $data['notification'] = 'operation'.$notification;
+    return $data;
+  }
 
+  public function updateTheme($id)
+  {
+    $operation['status'] = (int)($this->updateData('tema', 'id', $id, 'nama_tema', $this->input->post('nama_tema')))+2;
+    return $operation;
+  }
 
+  public function deleteTheme($id)
+  {
+    if (md5($this->input->post('password'))==$this->session->userdata['password']) {
+      $operation['status'] = (int)$this->deleteData('tema', 'id', $id)+4;
+      $this->updateData('account_dosen', 'id_tema_1', $id, 'id_tema_1' , 10);
+      $this->updateData('account_dosen', 'id_tema_2', $id, 'id_tema_2' , 10);
+      $this->updateData('rekap_kerjapraktik', 'id_tema', $id, 'id_tema' , 10);
+      $this->updateData('rekap_tugasakhir', 'id_tema', $id, 'id_tema' , 10);
+      $operation['redirect'] = 'theme';
+    } else {
+      $operation['redirect'] = 'detailTheme/'.$id;
+      $operation['status'] = 4;
+    }
+    return $operation;
+  }
 }
  ?>
