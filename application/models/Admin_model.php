@@ -100,6 +100,7 @@ class Admin_model extends CI_model{
     ');
     $sent = $this->email->send();
     error_reporting(0);
+    return 1;
   }
 
   public function deleteData($table, $var, $val)
@@ -112,7 +113,7 @@ class Admin_model extends CI_model{
   //functional
   public function getRole($id)
   {
-    return $this->getDataRow('account', 'id', $id)->role;
+    return ($this->getDataRow('account', 'id', $id)->role);
   }
 
 
@@ -168,7 +169,7 @@ class Admin_model extends CI_model{
     $data = array('id' => $id, 'email' => $this->input->post('email'),'display_picture'=> 'no.jpg');
     $this->db->insert('account_'.$this->input->post('role'),$data);
     $content = "Bersamaan dengan email ini kami informasikan bahwa proses pendaftaran akun anda sudah berhasil, silahkan login ke http://sista.co.id/ dengan username :".$this->input->post('username')." dan password : ".$password;
-    $status = $this->sentEmail($id, 'Selamat datang di SISTA', $content);
+    $status['status'] = $this->sentEmail($id, 'Selamat datang di SISTA', $content);
     return $status;
   }
 
@@ -183,8 +184,9 @@ class Admin_model extends CI_model{
 
   public function deleteAccount($id)
   {
+    $delete['status'] = $this->deleteData('account_'.$this->getRole($id), 'id', $id);
     $this->deleteData('account', 'id', $id);
-    return $this->deleteData('account_'.$getRole($id), 'id', $id);
+    return (int)$delete+1;
   }
 
   //trash

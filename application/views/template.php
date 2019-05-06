@@ -16,6 +16,12 @@
   <!-- CSS Files -->
   <link href="<?php echo base_url('./assets/template/material/');?>assets/css/material-dashboard.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/latest/css/font-awesome.min.css">
+  <!--datatable-->
+  <link href="https://code.jquery.com/jquery-3.3.1.js">
+  <link href="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js">
+  <link href="https://cdn.datatables.net/1.10.19/js/dataTables.material.min.js">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/material-design-lite/1.1.0/material.min.css">
+  <link href="https://cdn.datatables.net/1.10.19/css/dataTables.material.min.css">
   <!-- Select2-->
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
 </head>
