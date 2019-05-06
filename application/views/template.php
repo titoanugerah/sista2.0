@@ -116,7 +116,9 @@
       dropdownParent: $('#myModal'),
       width: '80%' // need to override the changed default
     });
-
+    $('.js-example-1').select2({
+      width: 'resolve' // need to override the changed default
+    });
 
   });
   </script>
