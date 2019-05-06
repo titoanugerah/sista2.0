@@ -137,8 +137,14 @@ class Account_model extends CI_model{
         'username' => $account->username,
         'password' => $account->password,
         'fullname' => $account->fullname,
-        'email' => $account->email,
         'nip' => $account->nip,
+        'email' => $account->email,
+        'day_off' => $account->day_off,
+        'id_tema_1' => $account->id_tema_1,
+        'tema_1' => $account->tema_1,
+        'id_tema_2' => $account->id_tema_2,
+        'tema_2' => $account->tema_2,
+        'display_picture' => $account->display_picture
         //tambahin
        );
     } elseif ($query->role=='mahasiswa') {
@@ -146,12 +152,17 @@ class Account_model extends CI_model{
         'login' => true,
         'role' => $query->role,
         'id' => $account->id,
+        'nim' => $account->nim,
         'username' => $account->username,
         'password' => $account->password,
         'fullname' => $account->fullname,
         'email' => $account->email,
-        'nip' => $account->nip,
-        //tambahin
+        'no_hp' => $account->no_hp,
+        'skp' => $account->skp,
+        'sta' => $account->sta,
+        'id_dosen' => $account->id_dosen,
+        'display_picture' => $account->display_picture,
+        'dosen_wali' => $account->dosen_wali
        );
     }
     return $data;

@@ -189,21 +189,23 @@ class Admin_model extends CI_model{
     return (int)$delete+1;
   }
 
+
+  public function cTheme($notification)
+  {
+    $data['theme'] = $this->getAllData('view_tema');
+    $data['title'] = 'Tema KP dan TA';
+    $data['view_name'] = 'theme';
+    $data['notification'] = 'operation'.$notification;
+    return $data;
+  }
+
+  public function createTheme()
+  {
+    $operation['status'] = $this->db->insert('tema', array('nama_tema' => $this->input->post('nama_tema')));
+    return $operation;
+  }
   //trash
 
-  public function updateAccount($id)
-  {
-    $where = array('id' => $id );
-    $data = array(
-      'username' => $this->input->post('username'),
-      'role' => $this->input->post('role'),
-      'fullname' => $this->input->post('fullname'),
-      'phone' => $this->input->post('phone'),
-      'email' => $this->input->post('email')
-    );
-    $this->db->where($where);
-    $this->db->update('account', $data);
-  }
 
 
 }

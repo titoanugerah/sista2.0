@@ -17,9 +17,9 @@
   </a>
 </li>
 <li class="nav-item active">
-  <a class="nav-link" href=" <?php echo base_url('itemList'); ?> ">
-    <i class="material-icons">note_add</i>
-    <p>List Stok Barang</p>
+  <a class="nav-link" href=" <?php echo base_url('theme'); ?> ">
+    <i class="material-icons">widgets</i>
+    <p>Tema KP&TA</p>
   </a>
 </li>
 <li class="nav-item active">

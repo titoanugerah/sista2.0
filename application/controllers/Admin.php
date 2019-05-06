@@ -40,17 +40,16 @@ class Admin extends CI_Controller{
     $this->load->view('template', $data);
   }
 
-
-  public function detailAccount1($id)
+  public function theme()
   {
-    if ($this->input->post('back')) {
-      redirect(base_url('account'));
-    } elseif ($this->input->post('updateAccount')) {
-      $this->admin_model->updateAccount($id);
-    }
+    $operation['status'] = 0;
+    if ($this->input->post('createTheme')) {$operation = $this->admin_model->createTheme($id);}
+    $data['content'] = $this->admin_model->cTheme($operation['status']);
     $this->load->view('template', $data);
+
   }
 
+///////
   public function itemList()
   {
     if ($this->input->post('createItem')) {
