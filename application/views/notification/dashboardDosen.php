@@ -1,3 +1,4 @@
 <div class="alert alert-info alert-with-icon" data-notify="container">
-  Update profil telah berhasil
+  Selamat datang <?php echo $this->session->userdata['fullname'] ?>
 </div>
+  

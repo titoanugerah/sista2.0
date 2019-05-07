@@ -5,16 +5,22 @@
         <form method="post">
 
           <div class="row">
-            <div class="col-md-6 pr-1">
+            <div class="col-md-4 pr-1">
               <div class="form-group">
                 <label>Username</label>
                 <input type="text" class="form-control" value="<?php echo "@".$content['account']->username; ?>" disabled>
               </div>
             </div>
-            <div class="col-md-6 pl-1">
+            <div class="col-md-4 pl-1">
               <div class="form-group">
                 <label>Email</label>
                 <input type="email" class="form-control" value="<?php echo $content['account']->email; ?>" disabled>
+              </div>
+            </div>
+            <div class="col-md-4 pl-1">
+              <div class="form-group">
+                <label>Nomor HP</label>
+                <input type="text" class="form-control"  value=" <?php echo $content['account']->no_hp; ?>" disabled>
               </div>
             </div>
           </div>
@@ -33,22 +39,34 @@
           </div>
         </div>
         <div class="row">
-          <div class="col-md-6 pr-1">
+          <div class="col-md-4 pr-1">
             <div class="form-group">
               <label>Status Koordinator</label>
-              <input type="text" class="form-control" value="<?php if($content['account']->superdosen==1){echo 'Aktif';} else {echo 'Tidak Aktif';}; ?>" disabled>
+              <select  class="form-control" name="superdosen">
+                <option value="0" <?php if($content['account']->superdosen==0){echo 'selected';} ?>>Tidak Aktif</option>
+                <option value="1" <?php if($content['account']->superdosen==1){echo 'selected';} ?>>Aktif</option>
+              </select>
             </div>
           </div>
-          <div class="col-md-6 pl-1">
+          <div class="col-md-4 pl-1">
             <div class="form-group">
-              <label>Nomor HP</label>
-              <input type="text" class="form-control"  value=" <?php echo $content['account']->no_hp; ?>" disabled>
+              <br>
+              <label>Kuota KP</label>
+              <input type="text" class="form-control" name="kuota_kp" value=" <?php echo $content['account']->kuota_kp; ?>" >
+            </div>
+          </div>
+          <div class="col-md-4 pl-1">
+            <div class="form-group">
+              <br>
+              <label>Kuota TA</label>
+              <input type="text" class="form-control" name="kuota_ta" value=" <?php echo $content['account']->kuota_ta; ?>" >
             </div>
           </div>
         </div>
         <div class="button-container">
+          <button type="submit" class="btn btn-info" name="updateAccount" value="updateAccount">Update Akun</button>
+          <a href="<?php echo base_url('account'); ?>"><button type="button" class="btn btn-grey">Kembali</button></a>
           <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#myModal">Hapus Akun</button>
-          <a href="<?php echo base_url('account'); ?>"><button type="button" class="btn btn-warning">Kembali</button></a>
         </div>
       </form>
     </div>

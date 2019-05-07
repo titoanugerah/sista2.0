@@ -7,7 +7,7 @@
       <div class="col-md-3 pr-1">
         <div class="form-group">
           <label>SKS Selesai</label>
-          <input type="text" name="skss" class="form-control" value="" disabled>
+          <input type="text" name="skss" class="form-control" value="<?php echo $var ?>" required>
         </div>
       </div>
       <div class="col-md-3 pl-1">

@@ -195,6 +195,14 @@ class Admin_model extends CI_model{
     return (int)$delete['status']+1;
   }
 
+  public function updateAccount($id)
+  {
+    $operation['status'] =  $this->updateData('account_dosen', 'id', $id, 'superdosen', $this->input->post('superdosen'));
+    $operation['status'] =  $this->updateData('account_dosen', 'id', $id, 'kuota_kp', $this->input->post('kuota_kp'));
+    $operation['status'] =  $this->updateData('account_dosen', 'id', $id, 'kuota_ta', $this->input->post('kuota_ta'));
+    return $operation;
+  }
+
   public function createKKP($id)
   {
     if ($this->input->post('id_dosen')!=0 && (($this->input->post('sksd')<=24)||($this->input->post('sksd')==''))) {

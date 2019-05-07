@@ -37,6 +37,7 @@ class Admin extends CI_Controller{
     $delete['status'] = 0;
     if ($this->input->post('deleteAccount')) {$delete = $this->admin_model->deleteAccount($id); redirect(base_url('account'));}
     elseif ($this->input->post('createKKP')) {$delete = $this->admin_model->createKKP($id);}
+    elseif ($this->input->post('updateAccount')) {$delete = $this->admin_model->updateAccount($id);}
     $data['content'] = $this->admin_model->cDetailAccount($id, $delete['status']);
     $this->load->view('template', $data);
   }
