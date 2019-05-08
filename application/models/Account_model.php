@@ -208,6 +208,7 @@ class Account_model extends CI_model{
 
   public function cProfile($notification)
   {
+    $data['theme'] = $this->getAllData('view_tema');
     $data['notification'] = 'profile'.$notification.$this->session->userdata['role'];
     $data['view_name'] = 'profile';
     $data['title'] = 'Profil';
@@ -226,11 +227,9 @@ class Account_model extends CI_model{
     if ($this->session->userdata['role']=='admin'){
       $data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
     } elseif ($this->session->userdata['role'] == 'mahasiswa') {
-      //$data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
-      //tambahin sendiri
+      $data = array('nim' => $this->input->post('nim'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'), 'no_hp' => $this->input->post('no_hp'));
     } elseif ($this->session->userdata['role'] == 'dosen') {
-      //$data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'));
-      //tambahin sendiri
+      $data = array('nip' => $this->input->post('nip'), 'fullname' => $this->input->post('fullname'), 'email' => $this->input->post('email'), 'no_hp' => $this->input->post('no_hp'), 'id_tema_1' => $this->input->post('id_tema_1'), 'id_tema_2' => $this->input->post('id_tema_2'));
     }
     $this->db->where($where);
     $account['status'] = $this->db->update('account_'.$this->session->userdata['role'], $data);
