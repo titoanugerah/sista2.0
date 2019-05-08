@@ -179,8 +179,6 @@ class Admin_model extends CI_model{
     $data['title'] = 'Detail Akun @'.$data['account']->username;
     $data['view_name'] = 'detailAccount'.ucfirst($this->getDataRow('account', 'id', $id)->role);
     $data['notification'] = 'detailAccount'.$notification;
-    $data['dosen'] = $this->getAllData('account_dosen');
-    $data['kkp'] = $this->getDataRow('view_kelayakan_kerjapraktik', 'id', $id);
     return $data;
   }
 
@@ -202,19 +200,6 @@ class Admin_model extends CI_model{
     $operation['status'] =  $this->updateData('account_dosen', 'id', $id, 'kuota_ta', $this->input->post('kuota_ta'));
     return $operation;
   }
-
-  public function createKKP($id)
-  {
-    if ($this->input->post('id_dosen')!=0 && (($this->input->post('sksd')<=24)||($this->input->post('sksd')==''))) {
-      if (($this->input->post('skss')>=110)||(($this->input->post('sksd')+($this->input->post('skss'))>=110))) {
-        $data = array('id_mahasiswa' => $id, 'id_dosen'=> $this->input->post('id_dosen'), 'skss'=> $this->input->post('skss'), 'sksd'=> $this->input->post('sksd'));
-        $data['status']=$this->db->insert('kelayakan_kerjapraktik', $data)+2;
-        $this->updateData('account_mahasiswa', 'id', $id, 'skp', 1);
-      } else {$data['status']=2;}
-    } else {$data['status']=2;}
-    return $data;
-  }
-
 
   public function cTheme($notification)
   {

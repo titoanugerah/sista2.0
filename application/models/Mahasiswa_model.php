@@ -5,6 +5,7 @@ class Mahasiswa_model extends CI_model{
   public function __construct()
   {
     $this->load->database();
+    $this->load->model('account_model');
   }
 
   //core
@@ -115,9 +116,33 @@ class Mahasiswa_model extends CI_model{
   //Application
   public function cStatusKP($notification)
   {
+    $data['theme'] = $this->getAllData('view_tema');
     $data['title'] = 'Status Kerja Praktik';
     $data['view_name'] = 'statusKP'.$this->session->userdata['skp'];
     $data['notification'] = 'no';
+    $data['dosen'] = $this->getAllData('account_dosen');
+
+    return $data;
+  }
+
+  public function createKKP($id)
+  {
+    if ($this->input->post('id_dosen')!=0 && (($this->input->post('sksd')<=24)||($this->input->post('sksd')==''))) {
+      if (($this->input->post('skss')>=110)||(($this->input->post('sksd')+($this->input->post('skss'))>=110))) {
+        $data = array('id_mahasiswa' => $id, 'id_dosen'=> $this->input->post('id_dosen'), 'skss'=> $this->input->post('skss'), 'sksd'=> $this->input->post('sksd'));
+        $data['status']=$this->db->insert('kelayakan_kerjapraktik', $data)+2;
+        $this->updateData('account_mahasiswa', 'id', $id, 'skp', 1);
+        $data['session'] = $this->account_model->setSession($this->session->userdata['id']);
+      } else {$data['status']=2;}
+    } else {$data['status']=2;}
+    return $data;
+  }
+
+  public function cPrint($docs)
+  {
+    if ($docs==1) {
+      $data['content'] = $this->getDataRow('view_kelayakan_kerjapraktik', 'id_mahasiswa', $this->session->userdata['id']);
+    }
     return $data;
   }
 

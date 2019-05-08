@@ -4,5 +4,5 @@
   <button type="button" aria-hidden="true" class="close">
     <i class="now-ui-icons ui-1_simple-remove"></i>
   </button>
-  <span>Eits kamu lupa ngadep doswal yaa, temuin dulu sana :)  </span>
+  <span>Sip kalo form udah diisi sekarang  tinggal ngadep ke doswal, jangan lupa ngeprint file <a href="<?php echo base_url('print/1'); ?>">ini</a> yaa</span>
 </div>
