@@ -146,5 +146,10 @@ class Mahasiswa_model extends CI_model{
     return $data;
   }
 
+  public function createKP()
+  {
+
+  }
+
 }
  ?>

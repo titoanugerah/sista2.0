@@ -9,7 +9,7 @@
 <div class="card">
   <div class="card-body">
     <form method="post">
-      <h3>Form KP</h3>
+      <h3>Form KP 02</h3>
       <div class="row">
         <div class="col-md-5 pr-1">
           <div class="form-group">
@@ -34,47 +34,31 @@
 
       </div>
       <div class="row">
-        <div class="col-md-3 pr-1">
+        <div class="col-md-8 pr-1">
           <div class="form-group">
             <label>Nama Perusahaan</label>
             <input type="text" name="instansi" class="form-control" placeholder="Awas aja kalo PT. Cinta Sejatie" value="" required>
           </div>
         </div>
-        <div class="col-md-9 pl-1">
+        <div class="col-md-4 pl-1">
           <div class="form-group">
-            <label>Judul Usulan KP</label>
-            <input type="text"  class="form-control" name="judul" placeholder="Masukan Judul KP" value="" required>
+            <label>Tema Kerja Praktik</label>
+            <select  class="form-control js-example-1" name="id_tema_1" required>
+              <?php foreach ($content['theme'] as $item): ?>
+                <option value="<?php echo $item->id; ?>"><?php echo $item->nama_tema; ?></option>
+              <?php endforeach; ?>
+            </select>
           </div>
         </div>
       </div>
-        <div class="row">
-          <div class="col-md-4 pr-1">
-            <div class="form-group">
-              <label>Tema 1</label>
-              <select  class="form-control js-example-1" name="id_tema_1">
-                <?php foreach ($content['theme'] as $item): ?>
-                  <option value="<?php echo $item->id; ?>"><?php echo $item->nama_tema; ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-          <div class="col-md-4 pr-1">
-            <div class="form-group">
-              <label>Tema 2</label>
-              <select  class="form-control js-example-1" name="id_tema_2">
-                <?php foreach ($content['theme'] as $item): ?>
-                  <option value="<?php echo $item->id; ?>"><?php echo $item->nama_tema; ?></option>
-                <?php endforeach; ?>
-              </select>
-            </div>
-          </div>
-
-
-        </div>
+      <div class="form-group">
+        <label>Judul Usulan KP</label>
+        <textarea name="judul" rows="2" class="form-control" placeholder="Masukan Judul KP" required></textarea>
       </div>
+
 
       <div class="button-container">
-        <button type="submit" name="updateAccount" value="updateAccount" class="btn btn-primary">Simpan Data</button>
+        <button type="submit" name="createKP" value="createKP" class="btn btn-primary">Buat KP02</button>
       </div>
     </form>
   </div>

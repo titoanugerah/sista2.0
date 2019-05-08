@@ -13,6 +13,7 @@ class Mahasiswa extends CI_Controller {
 	{
 		$operation['status'] = 0;
 		if ($this->input->post('createKKP')) {$operation = $this->mahasiswa_model->createKKP($this->session->userdata['id']);$this->session->set_userdata($operation['session']);}
+		elseif ($this->input->post('createKP')) {$operation = $this->mahasiswa_model->createKP();$this->session->set_userdata($operation['session']);}
 		$data['content'] = $this->mahasiswa_model->cStatusKP($operation['status']);
 		$this->load->view('template', $data);
 	}
