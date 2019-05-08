@@ -20,7 +20,7 @@
             <div class="col-md-5 pl-1">
               <div class="form-group">
                 <label>Email</label>
-                <input type="email" name="email" class="form-control" placeholder="Masukan email anda" value="<?php echo $this->session->userdata['email']; ?>" required>
+                <input type="email" name="email" class="form-control" placeholder="Masukan email SSO kamu :)" value="<?php echo $this->session->userdata['email']; ?>" required>
               </div>
             </div>
           </div>
@@ -28,25 +28,67 @@
 
           </div>
           <div class="row">
-            <div class="col-md-5 pr-1">
+            <div class="col-md-7 pr-1">
               <div class="form-group">
                 <label>Nama Lengkap</label>
-                <input type="text" name="fullname" class="form-control" placeholder="Masukan nama lengkap anda" value="<?php echo $this->session->userdata['fullname']; ?>" required>
+                <input type="text" name="fullname" class="form-control" placeholder="Nama kamu aja ya, jangan nama mantan :)" value="<?php echo $this->session->userdata['fullname']; ?>" required>
               </div>
             </div>
-            <div class="col-md-3">
-              <div class="form-group">
-                <label>NIM</label>
-                <input type="text" name="nim" class="form-control" placeholder="Masukan NIM anda" value="<?php echo $this->session->userdata['nim']; ?>" required>
-              </div>
-            </div>
-            <div class="col-md-4 pl-1">
+            <div class="col-md-5 pl-1">
               <div class="form-group">
                 <label>Nomor HP</label>
-                <input type="text"  class="form-control" name="no_hp" placeholder="Masukan Nomor HP anda" value="<?php echo $this->session->userdata['no_hp']; ?>" required>
+                <input type="text"  class="form-control" name="no_hp" placeholder="Masukan Nomor Whatsapp kamu" value="<?php echo $this->session->userdata['no_hp']; ?>" required>
+              </div>
+            </div>
+            <div class="col-md-6 pr-1">
+              <div class="form-group">
+                <label>NIM</label>
+                <input type="text" name="nim" class="form-control" placeholder="Tulis NIM kamu " value="<?php echo $this->session->userdata['nim']; ?>" required>
+              </div>
+            </div>
+            <div class="col-md-6 pl-1">
+              <div class="form-group">
+                <label>NIP</label>
+                <input type="text"  class="form-control" name="nip" placeholder="Ingat kamu bukan pegawai, ngapain diisi"  disabled>
               </div>
             </div>
           </div>
+          <div class="col-md-12 pr-1">
+            <div class="form-group">
+              <div class="row">
+                <?php $value = rand(0,2); ?>
+              <div class="form-check form-check-radio">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" <?php if ($value == 0){echo 'checked';} ?>>
+                  Saya punya KTP
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <div class="form-check form-check-radio">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" <?php if ($value == 1){echo 'checked';} ?>>
+                  Saya <i>suscribe</i> Atta Halilintar
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+              &nbsp;&nbsp;&nbsp;&nbsp;
+              <div class="form-check form-check-radio">
+                <label class="form-check-label">
+                  <input class="form-check-input" type="radio" <?php if ($value == 2){echo 'checked';} ?>>
+                  Saya kmarin dateng orenji
+                  <span class="circle">
+                    <span class="check"></span>
+                  </span>
+                </label>
+              </div>
+            </div>
+            </div>
+            </div>
           <div class="button-container">
             <button type="submit" name="updateAccount" value="updateAccount" class="btn btn-primary">Simpan Data</button>
           </div>
@@ -81,14 +123,14 @@
     <div class="modal-content">
 
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Upload Foto</h5>
+          <h5 class="modal-title" id="exampleModalLabel">Update DP</h5>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
 
         <div class="modal-body">
-          <p>Silahkan upload foto anda dengan ukuran file maksimal 200kb</p>
+          <p>Ciye ciye mau ganti DP, fotonya yang cakep yak, siapa nanti folowernya nambah</p>
           <div class="md-form">
             <div class="file-field">
               <div class="btn btn-primary btn-sm float-left">
@@ -100,9 +142,9 @@
         </div>
 
         <div class="modal-footer modal-danger">
-          <button type="submit" class="btn btn-warning" name="uploadFile" value="uploadFile">Upload</button>
-          <button type="submit" class="btn btn-danger" name="deleteFile" value="deleteFile">Hapus Foto</button>
-          <button type="button" class="btn btn-primary" data-dismiss="modal">Kembali</button>
+          <button type="submit" class="btn btn-warning" name="uploadFile" value="uploadFile">Ganti DP</button>
+          <button type="submit" class="btn btn-danger" name="deleteFile" value="deleteFile">Mode ANSOS</button>
+          <button type="button" class="btn btn-grey" data-dismiss="modal">Kembali</button>
       </div>
     </div>
   </form>

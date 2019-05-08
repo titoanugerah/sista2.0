@@ -18,28 +18,9 @@ $route['account'] = 'admin/account';
 $route['detailAccount/(:any)'] = 'admin/detailAccount/$1';
 $route['theme'] = 'admin/theme';
 $route['detailTheme/(:any)'] = 'admin/detailTheme/$1';
-$route['recapOrder'] = 'admin/recapOrder';
-$route['detailRecapOrder/(:any)'] = 'admin/detailRecapOrder/$1';
 
-#WAREHOUSE AREA
-$route['item'] = 'warehouse/item';
-$route['itemDetail/(:any)'] = 'warehouse/itemDetail/$1';
-$route['globalOrder'] = 'warehouse/globalOrder';
+#MAHASISWA AREA
+$route['statusKP'] = 'mahasiswa/statusKP';
 
-#DISTRIBUTION CENTER AREA
-$route['order'] = 'dc/order';
-$route['deleteOrder/(:any)'] = 'dc/deleteOrder/$1';
-$route['orderHistory'] = 'dc/orderHistory';
-$route['detailOrder/(:any)'] = 'dc/detailOrder/$1';
-$route['confirmOrder/(:any)/(:any)/(:any)'] = 'dc/confirmOrder/$1/$2/$3';
-$route['itemRecap'] = 'dc/itemRecap';
-
-#PACKING AREA
-$route['packingOrder'] = 'packing/packingOrder';
-$route['detailPackingIn/(:any)'] = 'packing/detailPackingIn/$1';
-$route['checklistItem/(:any)/(:any)'] = 'packing/checklistItem/$1/$2';
-$route['detailPackingOrder/(:any)'] = 'packing/detailPackingOrder/$1';
-$route['processPacking/(:any)/(:any)'] = 'packing/processPacking/$1/$2';
-$route['checklistPacking/(:any)/(:any)/(:any)'] = 'packing/checklistPacking/$1/$2/$3';
 #TESTING PURPOSE
 $route['test'] = 'welcome/test';
