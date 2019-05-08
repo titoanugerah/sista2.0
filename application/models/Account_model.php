@@ -144,7 +144,8 @@ class Account_model extends CI_model{
         'tema_1' => $account->tema_1,
         'id_tema_2' => $account->id_tema_2,
         'tema_2' => $account->tema_2,
-        'display_picture' => $account->display_picture
+        'display_picture' => $account->display_picture,
+        'superdosen' => $account->superdosen
         //tambahin
        );
     } elseif ($query->role=='mahasiswa') {

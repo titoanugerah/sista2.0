@@ -11,7 +11,10 @@ class Mahasiswa extends CI_Controller {
 
 	public function statusKP()
 	{
-		
+		$operation['status'] = 0;
+//		if ($this->input->post('createAccount')) {$create = $this->admin_model->createAccount();}
+		$data['content'] = $this->mahasiswa_model->cStatusKP($operation['status']);
+		$this->load->view('template', $data);
 	}
 
 }

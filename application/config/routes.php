@@ -22,5 +22,9 @@ $route['detailTheme/(:any)'] = 'admin/detailTheme/$1';
 #MAHASISWA AREA
 $route['statusKP'] = 'mahasiswa/statusKP';
 
+#DOSEN AREA
+$route['kelayakanKP'] = 'dosen/kelayakanKP';
+$route['accKKP/(:any)'] = 'dosen/accKKP/$1';
+
 #TESTING PURPOSE
 $route['test'] = 'welcome/test';

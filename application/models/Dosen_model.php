@@ -1,7 +1,7 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Mahasiswa_model extends CI_model{
+class Dosen_model extends CI_model{
   public function __construct()
   {
     $this->load->database();
@@ -109,16 +109,41 @@ class Mahasiswa_model extends CI_model{
     return $query;
   }
 
+  public function getSomeData($table, $var, $val)
+  {
+    $where = array($var => $val );
+    return $this->db->get_where($table, $where)->result();
+  }
+
   //Functional
 
 
   //Application
-  public function cStatusKP($notification)
+  public function cKelayakanKP()
   {
-    $data['title'] = 'Status Kerja Praktik';
-    $data['view_name'] = 'statusKP'.$this->session->userdata['skp'];
-    $data['notification'] = 'no';
+    if ($this->session->superdosen==0) {
+      $data['list'] = $this->getSomeData('view_kelayakan_kerjapraktik', 'id_dosen', $this->session->userdata['id']);
+    } else if ($this->session->superdosen==1) {
+      $data['list'] = $this->getAllData('view_kelayakan_kerjapraktik');
+    }
+    $data['title'] = 'List Kelayakan KP';
+    $data['view_name'] = 'kelayakanKP';
+    $data['notification'] = 'kelayakanKP';
     return $data;
+  }
+
+  public function accKKP($id)
+  {
+    $this->deleteData('kelayakan_kerjapraktik', 'id_mahasiswa', $id);
+    $this->updateData('account_mahasiswa', ' id', $id, 'skp', 2);
+  }
+
+  public function accKKPAll()
+  {
+    foreach ($this->getAllData('kelayakan_kerjapraktik') as $item) {
+      $this->accKKP($item->id_mahasiswa);
+    }
+
   }
 
 }
