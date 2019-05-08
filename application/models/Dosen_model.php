@@ -136,6 +136,7 @@ class Dosen_model extends CI_model{
   {
     $this->deleteData('kelayakan_kerjapraktik', 'id_mahasiswa', $id);
     $this->updateData('account_mahasiswa', ' id', $id, 'skp', 2);
+    $this->sentEmail($id, 'Fitur KP Sudah Aktif', 'Bersamaan dengan email ini, kami informasikan bahwa fitur KP kamu sudah aktif, silahkan dicek ke http://www.sista.co.id');
   }
 
   public function accKKPAll()
